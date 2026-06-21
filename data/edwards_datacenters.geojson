@@ -1,0 +1,966 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.587,
+          29.488
+        ]
+      },
+      "properties": {
+        "name": "Rackspace Technology HQ",
+        "operator": "Rackspace",
+        "county": "Bexar",
+        "mw": 50,
+        "year": 2008,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 639,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.52,
+          29.45
+        ]
+      },
+      "properties": {
+        "name": "Stream Data Center San Antonio I",
+        "operator": "Stream Data Centers",
+        "county": "Bexar",
+        "mw": 40,
+        "year": 2010,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 511,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.545,
+          29.465
+        ]
+      },
+      "properties": {
+        "name": "CyrusOne San Antonio",
+        "operator": "CyrusOne",
+        "county": "Bexar",
+        "mw": 30,
+        "year": 2012,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 384,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.4936,
+          29.4241
+        ]
+      },
+      "properties": {
+        "name": "Microsoft Azure San Antonio",
+        "operator": "Microsoft",
+        "county": "Bexar",
+        "mw": 100,
+        "year": 2014,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 1278,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.4936,
+          29.4241
+        ]
+      },
+      "properties": {
+        "name": "H5 Data Centers San Antonio",
+        "operator": "H5 Data Centers",
+        "county": "Bexar",
+        "mw": null,
+        "year": 2015,
+        "status": "Operating",
+        "cooling": "Air",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Confirmed but small -- downtown colo facility; negligible water; exact MW not published.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.51,
+          29.44
+        ]
+      },
+      "properties": {
+        "name": "QTS San Antonio",
+        "operator": "QTS",
+        "county": "Bexar",
+        "mw": 90,
+        "year": 2018,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 1151,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.67,
+          29.42
+        ]
+      },
+      "properties": {
+        "name": "Texas Research Park SAT46",
+        "operator": "Unknown (likely Microsoft)",
+        "county": "Bexar",
+        "mw": null,
+        "year": 2020,
+        "status": "Operating",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Capacity to be determined.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.4936,
+          29.4241
+        ]
+      },
+      "properties": {
+        "name": "SAT15 Data Center",
+        "operator": "Microsoft",
+        "county": "Bexar",
+        "mw": null,
+        "year": 2026,
+        "status": "Under Construction",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Identity resolved: reassigned from \"Unknown\" to Microsoft San Antonio. Capacity to be determined.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.4936,
+          29.4241
+        ]
+      },
+      "properties": {
+        "name": "SAT40 Data Center",
+        "operator": "Microsoft",
+        "county": "Bexar",
+        "mw": null,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Identity resolved: reassigned from \"Unknown\" to Microsoft San Antonio. Capacity to be determined.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.62,
+          29.38
+        ]
+      },
+      "properties": {
+        "name": "American Tower Data Center Hwy 90",
+        "operator": "American Tower",
+        "county": "Bexar",
+        "mw": null,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Confirmed but small -- approximately 1 MW edge node; negligible water; exact MW not published.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.555,
+          29.455
+        ]
+      },
+      "properties": {
+        "name": "Vantage Data Center San Antonio",
+        "operator": "Vantage",
+        "county": "Bexar",
+        "mw": 96,
+        "year": 2027,
+        "status": "Planned",
+        "cooling": "Evaporative",
+        "water_acft": 1227,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.595,
+          29.475
+        ]
+      },
+      "properties": {
+        "name": "Black Mountain Power San Antonio",
+        "operator": "Black Mountain",
+        "county": "Bexar",
+        "mw": 200,
+        "year": 2027,
+        "status": "Planned",
+        "cooling": "Evaporative",
+        "water_acft": 2557,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.65,
+          29.41
+        ]
+      },
+      "properties": {
+        "name": "EX West Green Data Center",
+        "operator": "EX West",
+        "county": "Bexar",
+        "mw": null,
+        "year": 2027,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Capacity to be determined.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.1245,
+          29.703
+        ]
+      },
+      "properties": {
+        "name": "New Braunfels Data Center",
+        "operator": "Unknown",
+        "county": "Comal",
+        "mw": null,
+        "year": 2024,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Capacity to be determined.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": "Edwards Aquifer Transition Zone",
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.877,
+          29.989
+        ]
+      },
+      "properties": {
+        "name": "Meta Data Center Kyle",
+        "operator": "Meta",
+        "county": "Hays",
+        "mw": 150,
+        "year": 2021,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 1918,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "PLUM CREEK CONSERVATION DISTRICT"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.84,
+          30.085
+        ]
+      },
+      "properties": {
+        "name": "Amazon AWS Data Center Buda",
+        "operator": "Amazon",
+        "county": "Hays",
+        "mw": null,
+        "year": 2022,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Undisclosed -- no public per-site capacity available.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "BARTON SPRINGS/EDWARDS AQUIFER CONSERVATION DISTRICT"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.941,
+          29.883
+        ]
+      },
+      "properties": {
+        "name": "Switch Data Center San Marcos",
+        "operator": "Switch",
+        "county": "Hays",
+        "mw": null,
+        "year": 2023,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": null,
+        "include": "Exclude",
+        "note": "Likely phantom / mislabeled -- does not match any discrete facility in this operator's portfolio. Needs verification.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": "Edwards Aquifer Transition Zone",
+        "gcd_name": "BARTON SPRINGS/EDWARDS AQUIFER CONSERVATION DISTRICT"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.88,
+          29.353
+        ]
+      },
+      "properties": {
+        "name": "Google Data Center Castroville",
+        "operator": "Google",
+        "county": "Medina",
+        "mw": 150,
+        "year": 2023,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 1918,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.875,
+          29.358
+        ]
+      },
+      "properties": {
+        "name": "Microsoft Data Center Castroville",
+        "operator": "Microsoft",
+        "county": "Medina",
+        "mw": 200,
+        "year": 2025,
+        "status": "Under Construction",
+        "cooling": "Evaporative",
+        "water_acft": 2557,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.885,
+          29.35
+        ]
+      },
+      "properties": {
+        "name": "Amazon AWS Castroville",
+        "operator": "Amazon",
+        "county": "Medina",
+        "mw": null,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Evaporative",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Undisclosed -- no public per-site capacity available.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.67,
+          30.45
+        ]
+      },
+      "properties": {
+        "name": "Samsung Austin Semiconductor",
+        "operator": "Samsung",
+        "county": "Travis",
+        "mw": null,
+        "year": 1996,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": null,
+        "include": "Separate",
+        "note": "Semiconductor fab, not a data center. Process water reported separately and excluded from the data-center total.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": "Edwards Aquifer Transition Zone",
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.63,
+          30.35
+        ]
+      },
+      "properties": {
+        "name": "Apple Data Center Austin",
+        "operator": "Apple",
+        "county": "Travis",
+        "mw": 20,
+        "year": 2012,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 256,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.69,
+          30.32
+        ]
+      },
+      "properties": {
+        "name": "Iron Mountain Austin",
+        "operator": "Iron Mountain",
+        "county": "Travis",
+        "mw": null,
+        "year": 2013,
+        "status": "Operating",
+        "cooling": "Air",
+        "water_acft": null,
+        "include": "Exclude",
+        "note": "Real but mis-tagged -- this is actually a planned Williamson County campus (outside the 7-county study area) that disclosed ~34 ac-ft/yr. This row's county/status are incorrect in the source registry.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.72,
+          30.29
+        ]
+      },
+      "properties": {
+        "name": "CyrusOne Austin",
+        "operator": "CyrusOne",
+        "county": "Travis",
+        "mw": 30,
+        "year": 2014,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 384,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.74,
+          30.31
+        ]
+      },
+      "properties": {
+        "name": "Oracle Cloud Austin",
+        "operator": "Oracle",
+        "county": "Travis",
+        "mw": 50,
+        "year": 2016,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 639,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.76,
+          30.27
+        ]
+      },
+      "properties": {
+        "name": "QTS Austin Data Center",
+        "operator": "QTS",
+        "county": "Travis",
+        "mw": 40,
+        "year": 2017,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": 511,
+        "include": "Yes",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.7,
+          30.33
+        ]
+      },
+      "properties": {
+        "name": "T5 Data Centers Austin",
+        "operator": "T5 Data Centers",
+        "county": "Travis",
+        "mw": null,
+        "year": 2019,
+        "status": "Operating",
+        "cooling": "Air",
+        "water_acft": null,
+        "include": "Exclude",
+        "note": "Likely phantom / mislabeled -- does not match any discrete facility in this operator's portfolio. Needs verification.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.71,
+          30.26
+        ]
+      },
+      "properties": {
+        "name": "Aligned Data Centers Austin",
+        "operator": "Aligned",
+        "county": "Travis",
+        "mw": null,
+        "year": 2021,
+        "status": "Operating",
+        "cooling": "Evaporative",
+        "water_acft": null,
+        "include": "Exclude",
+        "note": "Likely phantom / mislabeled -- does not match any discrete facility in this operator's portfolio. Needs verification.",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.6789,
+          30.5083
+        ]
+      },
+      "properties": {
+        "name": "Sabey Data Center (Round Rock)",
+        "operator": "Sabey Data Centers",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2024,
+        "status": "Operating",
+        "cooling": "Unknown",
+        "include": "Pending",
+        "note": "One operational facility, one under construction, a third in planning. Expected to host UT Austin's Horizon supercomputer. Capacity not disclosed in source.",
+        "water_acft": null,
+        "on_recharge_zone": true,
+        "recharge_zone_type": "Edwards Aquifer Recharge Zone",
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.67,
+          30.5128
+        ]
+      },
+      "properties": {
+        "name": "Switch Round Rock Campus",
+        "operator": "Switch, Inc. (Dell)",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2024,
+        "status": "Operating",
+        "cooling": "Unknown",
+        "include": "Pending",
+        "note": "Two operational data centers as part of the Dell system; capacity not individually disclosed in source.",
+        "water_acft": null,
+        "on_recharge_zone": false,
+        "recharge_zone_type": "Edwards Aquifer Transition Zone",
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.6622,
+          30.5052
+        ]
+      },
+      "properties": {
+        "name": "Skybox Old Settlers",
+        "operator": "Skybox Datacenters",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "include": "Pending",
+        "note": "Approved by Round Rock City Council; the only campus in the county proceeding without municipal tax incentives. The ninth data center approved in Round Rock.",
+        "water_acft": null,
+        "on_recharge_zone": false,
+        "recharge_zone_type": "Edwards Aquifer Transition Zone",
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.6789,
+          30.5083
+        ]
+      },
+      "properties": {
+        "name": "Thin-nology Facility",
+        "operator": "Thin-nology",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2020,
+        "status": "Operating",
+        "cooling": "Unknown",
+        "include": "Pending",
+        "note": "Three small facilities: an enterprise colocation data center and two local carrier/edge nodes (telecom switching, not large-scale compute).",
+        "water_acft": null,
+        "on_recharge_zone": true,
+        "recharge_zone_type": "Edwards Aquifer Recharge Zone",
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.538,
+          30.543
+        ]
+      },
+      "properties": {
+        "name": "Skybox Hyperscale Campus (Hutto)",
+        "operator": "Skybox Datacenters",
+        "county": "Williamson",
+        "mw": 600,
+        "year": 2026,
+        "status": "Under Construction",
+        "cooling": "Unknown",
+        "include": "Yes",
+        "note": "Two operational data centers, two more planned. At full build-out, 600 MW supplied by two dedicated 300 MW on-site substations. Investment exceeds $10 billion.",
+        "water_acft": 7668,
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.545,
+          30.54
+        ]
+      },
+      "properties": {
+        "name": "Colovore Hutto",
+        "operator": "Colovore",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2025,
+        "status": "Operating",
+        "cooling": "Liquid-cooled",
+        "include": "Pending",
+        "note": "Liquid-cooled colocation facility for AI/high-performance computing clients including Cerebras, Lambda Cloud, Cirrascale.",
+        "water_acft": null,
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.677,
+          30.6333
+        ]
+      },
+      "properties": {
+        "name": "Blueprint Data Centers (Georgetown)",
+        "operator": "Blueprint Data Centers",
+        "county": "Williamson",
+        "mw": 25,
+        "year": 2026,
+        "status": "Under Construction",
+        "cooling": "Unknown",
+        "include": "Yes",
+        "note": "$160 million investment, ~45,000 sq ft across 10 acres, up to 25 MW. First phase expected operational late 2026.",
+        "water_acft": 320,
+        "on_recharge_zone": true,
+        "recharge_zone_type": "Edwards Aquifer Recharge Zone",
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.598,
+          30.823
+        ]
+      },
+      "properties": {
+        "name": "Mesones Data Center (Jarrell)",
+        "operator": "Mesones Data Center",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Natural gas generator (on-site)",
+        "include": "Pending",
+        "note": "City of Jarrell negotiating incentive agreement; includes an on-site natural gas generator.",
+        "water_acft": null,
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.4091,
+          30.5707
+        ]
+      },
+      "properties": {
+        "name": "Project Comal (Taylor)",
+        "operator": "KDC Real Estate",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "include": "Pending",
+        "note": "Six data centers permitted adjacent to the Samsung Austin Semiconductor factory.",
+        "water_acft": null,
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.43,
+          30.56
+        ]
+      },
+      "properties": {
+        "name": "Iron Mountain Taylor Campus",
+        "operator": "Iron Mountain",
+        "county": "Williamson",
+        "mw": null,
+        "year": 2027,
+        "status": "Planned",
+        "cooling": "Closed-loop",
+        "include": "Pending",
+        "note": "Seven data centers proposed on ~500 acres southwest of Samsung. Originally a 1,900-home residential development; projected water demand as data centers (~30,200 gal/day) is reported as lower than the wastewater volume estimated for the cancelled residential project.",
+        "water_acft": null,
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.4091,
+          30.5707
+        ]
+      },
+      "properties": {
+        "name": "Blueprint Data Centers (Taylor)",
+        "operator": "Blueprint Data Centers",
+        "county": "Williamson",
+        "mw": 60,
+        "year": 2026,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "include": "Yes",
+        "note": "Listed as \"under construction\" in source though construction had not yet begun as of publication. Up to $1 billion investment over ten years, ultimately 60 MW.",
+        "water_acft": 767,
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": null
+      }
+    }
+  ]
+}
