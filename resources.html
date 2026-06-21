@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources - Edwards Aquifer Data Center Watch</title>
+<style>
+  :root{
+    --ink:#0c1a24;
+    --paper:#ffffff;
+    --border:#dde3e7;
+    --text:#1a2630;
+    --muted:#6b7b87;
+    --accent:#0e7c7b;
+    --accent-soft:#e3f3f2;
+    --font: Arial, Helvetica, 'Helvetica Neue', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#f4f6f7;font-family:var(--font);color:var(--text);}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 24px 60px;}
+
+  h1{font-size:28px;margin:0 0 10px;font-weight:800;letter-spacing:-.3px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.5;}
+
+  .panel{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-bottom:20px;}
+
+  .org-row{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0f2f3;gap:16px;}
+  .org-row:last-child{border-bottom:none;}
+  .org-row .oname{font-weight:700;font-size:14.5px;}
+  .org-row .odesc{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5;}
+  .org-row a.olink{color:var(--accent);text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;flex-shrink:0;}
+
+  .site-footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 0 36px;}
+</style>
+</head>
+<body>
+<style>
+  :root{
+    --nav-bg:#0c1a24;
+    --nav-text:#e8edf0;
+    --nav-muted:#9aabb4;
+    --nav-accent:#5fd0c7;
+  }
+  #sitenav{
+    background:var(--nav-bg);padding:0 24px;display:flex;align-items:center;
+    justify-content:space-between;height:56px;font-family:Arial,Helvetica,'Helvetica Neue',sans-serif;
+  }
+  #sitenav .brand{color:#fff;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.2px;}
+  #sitenav .navlinks{display:flex;gap:6px;}
+  #sitenav .navlinks a{
+    color:var(--nav-muted);text-decoration:none;font-size:13.5px;font-weight:600;
+    padding:8px 14px;border-radius:7px;transition:all .15s;
+  }
+  #sitenav .navlinks a:hover{color:#fff;background:rgba(255,255,255,0.08);}
+  #sitenav .navlinks a.active{color:#fff;background:rgba(95,208,199,0.16);}
+  @media (max-width:640px){
+    #sitenav{flex-direction:column;height:auto;padding:14px 18px;gap:10px;}
+    #sitenav .navlinks{flex-wrap:wrap;justify-content:center;}
+  }
+</style>
+<nav id="sitenav">
+  <a class="brand" href="dashboard.html">Edwards Aquifer Data Center Watch</a>
+  <div class="navlinks">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="report.html">Report</a>
+    <a href="resources.html" class="active">Resources</a>
+    <a href="take-action.html">Take Action</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <h1>Organizations</h1>
+  <div class="sub">Other groups doing related work on data centers, water, and the Edwards Aquifer, plus the agencies that regulate them.</div>
+
+  <div class="panel">
+    <div class="org-row">
+      <div>
+        <div class="oname">Greater Edwards Aquifer Alliance (GEAA)</div>
+        <div class="odesc">Nonprofit coalition of 51 member organizations advocating for protection of the Edwards and Trinity aquifers across a 21-county service area. Published "Data Centers in Texas: A Review and Call for Innovation and Regulation," April 2026.</div>
+      </div>
+      <a class="olink" href="https://aquiferalliance.org/" target="_blank">aquiferalliance.org</a>
+    </div>
+    <div class="org-row">
+      <div>
+        <div class="oname">Edwards Aquifer Authority (EAA)</div>
+        <div class="odesc">Regulatory authority managing groundwater withdrawal permits for the San Antonio segment of the Edwards Aquifer.</div>
+      </div>
+      <a class="olink" href="https://www.edwardsaquifer.org/" target="_blank">edwardsaquifer.org</a>
+    </div>
+    <div class="org-row">
+      <div>
+        <div class="oname">Texas Commission on Environmental Quality (TCEQ)</div>
+        <div class="odesc">State agency administering the Edwards Aquifer Protection Program and water quality regulation statewide.</div>
+      </div>
+      <a class="olink" href="https://www.tceq.texas.gov/" target="_blank">tceq.texas.gov</a>
+    </div>
+    <div class="org-row">
+      <div>
+        <div class="oname">Texas Water Development Board (TWDB)</div>
+        <div class="odesc">State water planning agency; source for groundwater levels, aquifer data, and the State Water Plan.</div>
+      </div>
+      <a class="olink" href="https://www.twdb.texas.gov/" target="_blank">twdb.texas.gov</a>
+    </div>
+    <div class="org-row">
+      <div>
+        <div class="oname">Public Utility Commission of Texas (PUC)</div>
+        <div class="odesc">Now surveying data centers and crypto-mining facilities statewide on water use, cooling type, and power source.</div>
+      </div>
+      <a class="olink" href="https://www.puc.texas.gov/" target="_blank">puc.texas.gov</a>
+    </div>
+    <div class="org-row">
+      <div>
+        <div class="oname">UT Austin COMPASS</div>
+        <div class="odesc">"Water Use Requirements for Data Centers in Texas," a white paper on evolving water demand from data center infrastructure.</div>
+      </div>
+      <a class="olink" href="https://www.beg.utexas.edu/" target="_blank">beg.utexas.edu</a>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">Preliminary screening, published June 2026</footer>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Edwards Aquifer Data Center Watch</title>
+<style>
+  :root{
+    --ink:#0c1a24;
+    --paper:#ffffff;
+    --border:#dde3e7;
+    --text:#1a2630;
+    --muted:#6b7b87;
+    --accent:#0e7c7b;
+    --accent-soft:#e3f3f2;
+    --font: Arial, Helvetica, 'Helvetica Neue', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#f4f6f7;font-family:var(--font);color:var(--text);}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 24px 60px;}
+
+  .kicker{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px;}
+  h1{font-size:28px;margin:0 0 10px;font-weight:800;letter-spacing:-.3px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.5;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+  .panel{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:24px 26px;}
+  .panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 14px;font-weight:700;}
+
+  .person{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .avatar{width:48px;height:48px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;}
+  .person .pname{font-weight:700;font-size:15px;}
+  .person .prole{font-size:12.5px;color:var(--muted);}
+  .contact-line{font-size:13.5px;margin:8px 0;}
+  .contact-line a{color:var(--accent);text-decoration:none;font-weight:600;}
+
+  form{display:flex;flex-direction:column;gap:14px;}
+  label{font-size:13px;font-weight:600;margin-bottom:5px;display:block;}
+  input,select,textarea{
+    width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;
+    font-family:var(--font);font-size:14px;color:var(--text);
+  }
+  textarea{resize:vertical;min-height:110px;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);}
+  .submit-btn{
+    background:var(--accent);color:#fff;border:none;padding:13px 22px;border-radius:8px;
+    font-size:14.5px;font-weight:700;cursor:pointer;align-self:flex-start;
+  }
+  .submit-btn:hover{opacity:.9;}
+  .form-note{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  #formStatus{font-size:13.5px;margin-top:10px;display:none;padding:10px 14px;border-radius:8px;}
+  #formStatus.success{display:block;background:var(--accent-soft);color:var(--accent);}
+  #formStatus.error{display:block;background:#fde6e3;color:#c0392b;}
+
+  @media (max-width:700px){ .grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<style>
+  :root{
+    --nav-bg:#0c1a24;
+    --nav-text:#e8edf0;
+    --nav-muted:#9aabb4;
+    --nav-accent:#5fd0c7;
+  }
+  #sitenav{
+    background:var(--nav-bg);padding:0 24px;display:flex;align-items:center;
+    justify-content:space-between;height:56px;font-family:Arial,Helvetica,'Helvetica Neue',sans-serif;
+  }
+  #sitenav .brand{color:#fff;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.2px;}
+  #sitenav .navlinks{display:flex;gap:6px;}
+  #sitenav .navlinks a{
+    color:var(--nav-muted);text-decoration:none;font-size:13.5px;font-weight:600;
+    padding:8px 14px;border-radius:7px;transition:all .15s;
+  }
+  #sitenav .navlinks a:hover{color:#fff;background:rgba(255,255,255,0.08);}
+  #sitenav .navlinks a.active{color:#fff;background:rgba(95,208,199,0.16);}
+  @media (max-width:640px){
+    #sitenav{flex-direction:column;height:auto;padding:14px 18px;gap:10px;}
+    #sitenav .navlinks{flex-wrap:wrap;justify-content:center;}
+  }
+</style>
+<nav id="sitenav">
+  <a class="brand" href="dashboard.html">Edwards Aquifer Data Center Watch</a>
+  <div class="navlinks">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="report.html">Report</a>
+    <a href="resources.html">Resources</a>
+    <a href="take-action.html">Take Action</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="kicker">Contact</div>
+  <h1>Get in touch</h1>
+  <div class="sub">Questions about the data, the methodology, or interested in collaborating? Reach out below.</div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="person">
+        <div class="avatar">KT</div>
+        <div>
+          <div class="pname">Kaitlyn Tran</div>
+          <div class="prole">Independent Researcher &middot; TxDOT Environmental Intern</div>
+        </div>
+      </div>
+      <div class="contact-line">Email: <a href="mailto:kaitlyn.tran2@g.austincc.edu">kaitlyn.tran2@g.austincc.edu</a></div>
+    </div>
+
+    <div class="panel">
+      <div class="person">
+        <div class="avatar">FG</div>
+        <div>
+          <div class="pname">Dr. Fenil Gandhi</div>
+          <div class="prole">Water Resource Engineer &middot; Independent Researcher</div>
+        </div>
+      </div>
+      <div class="contact-line">Email: <a href="mailto:fenilgandhi15@gmail.com">fenilgandhi15@gmail.com</a></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Send a message</h2>
+    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="reason">Reason for contact</label>
+        <select id="reason" name="reason">
+          <option>General question</option>
+          <option>Press / media inquiry</option>
+          <option>Data correction or correction request</option>
+          <option>Collaboration or research inquiry</option>
+          <option>Legislative / policy inquiry</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send message</button>
+      <div class="form-note">Messages go directly to Kaitlyn's email. You should hear back within a few days.</div>
+      <div id="formStatus"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('contactForm');
+const status = document.getElementById('formStatus');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  status.className = '';
+  status.style.display = 'none';
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      status.textContent = "Message sent. Thanks for reaching out, we'll get back to you soon.";
+      status.className = 'success';
+      form.reset();
+    } else {
+      status.textContent = 'Something went wrong sending your message. Please try emailing directly instead.';
+      status.className = 'error';
+    }
+  } catch (err) {
+    status.textContent = 'Something went wrong sending your message. Please try emailing directly instead.';
+    status.className = 'error';
+  }
+  status.style.display = 'block';
+});
+</script>
+<footer style="text-align:center;font-size:12px;color:#6b7b87;padding:24px 0 36px;font-family:Arial,Helvetica,sans-serif;">Preliminary screening, published June 2026</footer>
+</body>
+</html>

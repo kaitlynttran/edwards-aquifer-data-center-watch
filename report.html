@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Report - Edwards Aquifer Data Center Watch</title>
+<style>
+  :root{
+    --ink:#0c1a24;
+    --paper:#ffffff;
+    --border:#dde3e7;
+    --text:#1a2630;
+    --muted:#6b7b87;
+    --accent:#0e7c7b;
+    --accent-soft:#e3f3f2;
+    --warn:#c1791f;
+    --warn-soft:#fef4e3;
+    --font: Arial, Helvetica, 'Helvetica Neue', sans-serif;
+    --mono: 'Courier New', Courier, monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#f4f6f7;font-family:var(--font);color:var(--text);}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 24px 60px;}
+
+  .kicker{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px;}
+  h1{font-size:28px;margin:0 0 10px;font-weight:800;letter-spacing:-.3px;line-height:1.2;}
+  .byline{color:var(--muted);font-size:14px;margin-bottom:28px;}
+  .byline b{color:var(--text);font-weight:600;}
+
+  .panel{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-bottom:20px;}
+  .panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 16px;font-weight:700;}
+
+  .download-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;
+    text-decoration:none;padding:11px 18px;border-radius:8px;font-size:13.5px;font-weight:700;
+  }
+  .btn.secondary{background:#fff;color:var(--accent);border:1.5px solid var(--accent);}
+  .btn:hover{opacity:.9;}
+
+  embed.pdf-embed{width:100%;height:780px;border:1px solid var(--border);border-radius:10px;}
+  .pdf-fallback{font-size:13px;color:var(--muted);padding:14px;text-align:center;}
+
+  .finding-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+  .finding{background:var(--accent-soft);border:1px solid #bfe3e1;border-radius:10px;padding:16px 18px;}
+  .finding .fnum{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--accent);}
+  .finding .flabel{font-size:12.5px;color:var(--text);margin-top:4px;line-height:1.45;}
+
+  ul.toc{list-style:none;padding:0;margin:0;font-size:13.5px;line-height:2;}
+  ul.toc li{border-bottom:1px solid #f0f2f3;padding:6px 0;}
+  ul.toc a{color:var(--text);text-decoration:none;}
+  ul.toc a:hover{color:var(--accent);}
+
+  .ext-link-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f0f2f3;}
+  .ext-link-row:last-child{border-bottom:none;}
+  .ext-link-row .lname{font-weight:600;font-size:14px;}
+  .ext-link-row .ldesc{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .ext-link-row a{color:var(--accent);text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;}
+
+  @media (max-width:700px){
+    .finding-grid{grid-template-columns:1fr;}
+    embed.pdf-embed{height:500px;}
+  }
+  .site-footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 0 36px;}
+</style>
+</head>
+<body>
+<style>
+  :root{
+    --nav-bg:#0c1a24;
+    --nav-text:#e8edf0;
+    --nav-muted:#9aabb4;
+    --nav-accent:#5fd0c7;
+  }
+  #sitenav{
+    background:var(--nav-bg);padding:0 24px;display:flex;align-items:center;
+    justify-content:space-between;height:56px;font-family:Arial,Helvetica,'Helvetica Neue',sans-serif;
+  }
+  #sitenav .brand{color:#fff;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.2px;}
+  #sitenav .navlinks{display:flex;gap:6px;}
+  #sitenav .navlinks a{
+    color:var(--nav-muted);text-decoration:none;font-size:13.5px;font-weight:600;
+    padding:8px 14px;border-radius:7px;transition:all .15s;
+  }
+  #sitenav .navlinks a:hover{color:#fff;background:rgba(255,255,255,0.08);}
+  #sitenav .navlinks a.active{color:#fff;background:rgba(95,208,199,0.16);}
+  @media (max-width:640px){
+    #sitenav{flex-direction:column;height:auto;padding:14px 18px;gap:10px;}
+    #sitenav .navlinks{flex-wrap:wrap;justify-content:center;}
+  }
+</style>
+<nav id="sitenav">
+  <a class="brand" href="dashboard.html">Edwards Aquifer Data Center Watch</a>
+  <div class="navlinks">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="report.html" class="active">Report</a>
+    <a href="resources.html">Resources</a>
+    <a href="take-action.html">Take Action</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <h1>Edwards Aquifer Data Center Watch</h1>
+  <div class="byline">By <b>Kaitlyn Tran</b> and <b>Dr. Fenil Gandhi</b> &middot; full report, 15 pages including appendix</div>
+
+  <div class="panel">
+    <h2>Download or read</h2>
+    <div class="download-row">
+      <a class="btn" href="Edwards_DataCenters_Water_Report.pdf" download>Download PDF</a>
+      <a class="btn secondary" href="Edwards_DataCenters_Water_Report.pdf" target="_blank">Open in new tab</a>
+      <a class="btn secondary" href="dashboard.html">View the interactive dashboard</a>
+    </div>
+    <embed class="pdf-embed" src="Edwards_DataCenters_Water_Report.pdf" type="application/pdf">
+    <div class="pdf-fallback">If the report doesn't display above, use the download link.</div>
+  </div>
+</div>
+<footer class="site-footer">Preliminary screening, published June 2026</footer>
+</body>
+</html>
