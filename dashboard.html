@@ -58,7 +58,7 @@
   .control-hint{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.5;}
 
   /* ---- Layout: map + side panel ---- */
-  .main-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-top:8px;}
+  .main-grid{display:grid;grid-template-columns:3fr 1fr;gap:18px;margin-top:8px;}
   .panel{background:var(--paper);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
   .panel-head{padding:16px 20px;border-bottom:1px solid var(--border);}
   .panel-head h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0;font-weight:700;}
@@ -189,7 +189,7 @@
       </div>
       <div class="stat-card">
         <div class="v" id="statWater">8.0 billion gal/yr</div>
-        <div class="k">Estimated water use for those 14 facilities. This is a low estimate; 14 more facilities don't disclose their power use.</div>
+        <div class="k" id="statWaterDesc">Estimated water use for those facilities with known power use. This is a low estimate; more facilities don't disclose their power use.</div>
       </div>
       <div class="stat-card warn">
         <div class="v" id="statNoGCD">19</div>
@@ -332,7 +332,7 @@ function titleCase(str){
 let loadFactor = 1.0;
 let growthRate = 0.132;
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpdGx5bnRyYW4iLCJhIjoiY21xbHFqN2x2MDN6ZDJ0b2hrOXhrZG5zZyJ9.S3xiRGUcEQvMtfVb2PoPaQ';
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpdGx5bnRyYW4iLCJhIjoiY21xbHF4emtuMTRyMzJxcTB2dzExamw5ciJ9.aIui5ZZrbTSth0vZmABAdQ';
 try {
   map = new mapboxgl.Map({
     container: 'map',
@@ -445,6 +445,9 @@ function renderAll(){
   const totalMW = quantified.reduce((s,f)=>s+f.properties.mw,0);
 
   document.getElementById('statQuantified').textContent = quantified.length;
+  const unquantifiedCount = DC_DATA.features.length - quantified.length;
+  document.getElementById('statWaterDesc').textContent =
+    `Estimated water use for those ${quantified.length} facilities. This is a low estimate; ${unquantifiedCount} more facilities don't disclose their power use.`;
   document.getElementById('statWater').textContent = fmtGallons(totalWater) + '/yr';
 
   const noGCDCount = DC_DATA.features.filter(f => !f.properties.gcd_name).length;
@@ -479,15 +482,25 @@ function renderAll(){
     </div>`).join('');
 }
 
+function updateSliderFill(slider){
+  const min = parseFloat(slider.min), max = parseFloat(slider.max), val = parseFloat(slider.value);
+  const pct = ((val - min) / (max - min)) * 100;
+  slider.style.background = `linear-gradient(to right, var(--accent) ${pct}%, #e2e7e9 ${pct}%)`;
+}
+
 document.getElementById('loadFactor').addEventListener('input', e=>{
   loadFactor = parseFloat(e.target.value)/100;
   document.getElementById('loadFactorVal').textContent = e.target.value + '%';
+  updateSliderFill(e.target);
   renderAll();
 });
 document.getElementById('growthRate').addEventListener('input', e=>{
   growthRate = parseFloat(e.target.value)/100;
   document.getElementById('growthRateVal').textContent = e.target.value + '%/yr';
+  updateSliderFill(e.target);
 });
+updateSliderFill(document.getElementById('loadFactor'));
+updateSliderFill(document.getElementById('growthRate'));
 
 document.querySelectorAll('.zone-toggle').forEach(checkbox => {
   checkbox.addEventListener('change', e => {
