@@ -29,10 +29,13 @@
 
   .person{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
   .avatar{width:48px;height:48px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
-    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;}
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;
+    overflow:hidden;}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
   .person .pname{font-weight:700;font-size:15px;}
   .person .prole{font-size:12.5px;color:var(--muted);}
   .contact-line{font-size:13.5px;margin:8px 0;}
+  .bio{font-size:12.5px;line-height:1.6;color:var(--text);margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
   .contact-line a{color:var(--accent);text-decoration:none;font-weight:600;}
 
   form{display:flex;flex-direction:column;gap:14px;}
@@ -99,24 +102,28 @@
   <div class="grid">
     <div class="panel">
       <div class="person">
-        <div class="avatar">KT</div>
+        <div class="avatar"><img src="images/kaitlyn-tran.png" alt="Kaitlyn Tran"></div>
         <div>
           <div class="pname">Kaitlyn Tran</div>
           <div class="prole">Independent Researcher &middot; TxDOT Environmental Intern</div>
         </div>
       </div>
       <div class="contact-line">Email: <a href="mailto:kaitlyn.tran2@g.austincc.edu">kaitlyn.tran2@g.austincc.edu</a></div>
+      <div class="contact-line"><a href="https://www.linkedin.com/in/kaitlyn-t-tran/" target="_blank">LinkedIn</a></div>
+      <div class="bio">Kaitlyn Tran is an independent student researcher specializing in hydrogeology. Her work focuses on developing GIS mapping to predict groundwater contamination patterns over the Edwards Aquifer. She has worked directly with policymakers to improve groundwater regulations and sustainable land use in Central Texas. This year, she will present her work at eight conferences, including international audiences in Japan and Switzerland. She looks forward to joining AGU's Voices for Science cohort to advocate for science-protective legislation in Washington, D.C., and continuing her studies in karst hydrogeology to fight the groundwater crisis in Texas.</div>
     </div>
 
     <div class="panel">
       <div class="person">
-        <div class="avatar">FG</div>
+        <div class="avatar"><img src="images/fenil-gandhi.png" alt="Dr. Fenil Gandhi"></div>
         <div>
           <div class="pname">Dr. Fenil Gandhi</div>
           <div class="prole">Water Resource Engineer &middot; Independent Researcher</div>
         </div>
       </div>
       <div class="contact-line">Email: <a href="mailto:fenilgandhi15@gmail.com">fenilgandhi15@gmail.com</a></div>
+      <div class="contact-line"><a href="https://www.linkedin.com/in/fenil-gandhi-ph-d-93736674/" target="_blank">LinkedIn</a></div>
+      <div class="bio">Dr. Fenil Gandhi is a water resources engineer and applied researcher with a Ph.D. from S.V. National Institute of Technology (SVNIT) Surat and over 10 years of experience in hydrologic and hydraulic modeling, GIS-based spatial analysis, climate resilience planning, flood risk management, and groundwater assessment. He is Co-Founder and Director of Bruhad Engineering and Design, a registered consultancy in Surat, India, and serves as a registered individual consultant to the Asian Development Bank. He has authored 11+ peer-reviewed publications, including in the Journal of Hydrology and Hydrological Sciences Journal, and holds a patent for an IoT-based groundwater level measurement sensor.</div>
     </div>
   </div>
 
