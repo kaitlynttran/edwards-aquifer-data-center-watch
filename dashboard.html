@@ -8,158 +8,129 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/3.6.0/mapbox-gl.js"></script>
 <style>
   :root{
-    --ink:#0c1a24;
-    --paper:#ffffff;
-    --border:#dde3e7;
-    --text:#1a2630;
-    --muted:#6b7b87;
-    --accent:#0e7c7b;
-    --accent-soft:#e3f3f2;
-    --warn:#c1791f;
-    --warn-soft:#fef4e3;
-    --danger:#c0392b;
-    --op:#2f8f5b;
-    --constr:#c1791f;
-    --planned:#5b62b8;
-    --pending:#9aa5ab;
+    --ink:#0c1a24; --paper:#ffffff; --border:#dde3e7; --text:#1a2630; --muted:#6b7b87;
+    --accent:#0e7c7b; --accent-soft:#e3f3f2;
+    --depl:#0e6e8e; --depl-soft:#e6f1f5;
+    --cont:#a3492f; --cont-soft:#fbece6;
+    --op:#2f8f5b; --constr:#c1791f; --planned:#5b62b8; --pending:#9aa5ab;
     --font: Arial, Helvetica, 'Helvetica Neue', sans-serif;
     --mono: 'Courier New', Courier, monospace;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;background:#f4f6f7;font-family:var(--font);color:var(--text);}
-
   .wrap{max-width:1280px;margin:0 auto;padding:28px 24px 60px;}
 
-  /* ---- Header ---- */
-  header{margin-bottom:24px;}
-  .kicker{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px;}
-  h1{font-size:30px;margin:0 0 6px;font-weight:800;letter-spacing:-.3px;line-height:1.15;}
-  .byline{color:var(--muted);font-size:14px;margin-bottom:20px;}
-  .byline b{color:var(--text);font-weight:600;}
-  .scope-note{color:var(--muted);font-size:12.5px;margin:-12px 0 20px;line-height:1.5;background:#f4f6f7;border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;}
+  #sitenav{background:var(--ink);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;}
+  #sitenav .brand{color:#fff;font-weight:800;font-size:15px;text-decoration:none;}
+  #sitenav .navlinks{display:flex;gap:6px;}
+  #sitenav .navlinks a{color:#9aabb4;text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:7px;}
+  #sitenav .navlinks a:hover{color:#fff;background:rgba(255,255,255,0.08);}
+  #sitenav .navlinks a.active{color:#fff;background:rgba(95,208,199,0.16);}
 
-  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px;}
-  .stat-card{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
-  .stat-card .v{font-family:var(--mono);font-size:25px;font-weight:700;color:var(--text);}
-  .stat-card .k{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.4;}
+  h1{font-size:27px;margin:0 0 6px;font-weight:800;letter-spacing:-.3px;}
+  .byline{color:var(--muted);font-size:13.5px;margin-bottom:14px;}
+  .byline b{color:var(--text);font-weight:600;}
+  .scope-note{color:var(--muted);font-size:12px;line-height:1.5;background:#fff;border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:18px;}
+
+  /* ---- Mode switcher ---- */
+  .mode-switch{display:flex;gap:10px;margin-bottom:20px;}
+  .mode-btn{
+    flex:1;background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px 20px;
+    cursor:pointer;text-align:left;transition:all .15s;
+  }
+  .mode-btn h3{margin:0 0 4px;font-size:15px;}
+  .mode-btn p{margin:0;font-size:12px;color:var(--muted);line-height:1.4;}
+  .mode-btn[data-active="true"]{border-color:var(--depl);background:var(--depl-soft);}
+  .mode-btn[data-active="true"].cont-active{border-color:var(--cont);background:var(--cont-soft);}
+  .mode-btn .tag{display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;
+    padding:3px 9px;border-radius:20px;margin-bottom:6px;}
+  .mode-btn.depl .tag{background:var(--depl);color:#fff;}
+  .mode-btn.cont .tag{background:var(--cont);color:#fff;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+  .stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .stat-card .v{font-family:var(--mono);font-size:23px;font-weight:700;}
+  .stat-card .v.text{font-size:15px;line-height:1.3;font-family:var(--font);}
+  .stat-card .k{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
   .stat-card.warn{border-color:#d9c3e5;background:#f4eef7;}
   .stat-card.warn .v{color:#7a4d8f;}
 
-  /* ---- Sliders panel ---- */
-  .controls{
-    background:var(--paper);border:1px solid var(--border);border-radius:14px;
-    padding:22px 26px;margin:22px 0;display:grid;grid-template-columns:1fr 1fr;gap:28px;
-  }
-  .control-block label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:10px;}
-  .control-block label .val{font-family:var(--mono);color:var(--accent);font-weight:700;}
+  .controls-row{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;align-items:flex-end;}
+  .ctl-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 16px;flex:1;min-width:200px;}
+  .ctl-block label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:6px;}
+  .ctl-block .val{font-family:var(--mono);color:var(--accent);font-weight:700;}
   input[type=range]{width:100%;height:6px;border-radius:3px;background:#e2e7e9;outline:none;-webkit-appearance:none;}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);}
-  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;}
-  .control-hint{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.5;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;}
+  .search-box{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:var(--font);}
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{border:1.5px solid var(--border);background:#fff;border-radius:8px;padding:5px 11px;font-size:12px;cursor:pointer;font-weight:500;}
+  .chip[data-active="true"]{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-  /* ---- Layout: map + side panel ---- */
-  .main-grid{display:grid;grid-template-columns:3fr 1fr;gap:18px;margin-top:8px;}
-  .panel{background:var(--paper);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-  .panel-head{padding:16px 20px;border-bottom:1px solid var(--border);}
-  .panel-head h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0;font-weight:700;}
+  .main-grid{display:grid;grid-template-columns:2.4fr 1fr;gap:16px;}
+  .panel{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .panel-head{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .panel-head h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0;font-weight:700;}
   #map{height:560px;width:100%;position:relative;}
-
-  .map-legend{
-    position:absolute;bottom:14px;left:14px;z-index:5;background:rgba(255,255,255,.96);
-    border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:11.5px;
-    box-shadow:0 4px 14px rgba(0,0,0,.12);
-  }
-  .legend-row{display:flex;align-items:center;gap:7px;padding:3px 0;}
+  .map-legend{position:absolute;bottom:14px;left:14px;z-index:5;background:rgba(255,255,255,.96);border:1px solid var(--border);
+    border-radius:10px;padding:10px 12px;font-size:11px;max-width:190px;box-shadow:0 4px 14px rgba(0,0,0,.12);}
+  .legend-row{display:flex;align-items:center;gap:6px;padding:2px 0;}
+  .legend-section-label{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:6px 0 3px;}
   .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
   .legend-dot.dash{border:1.5px dashed var(--pending);background:none;}
-  .legend-toggle{display:flex;align-items:center;gap:7px;padding:3px 0;cursor:pointer;font-size:11.5px;user-select:none;}
-  .legend-toggle input[type=checkbox]{margin:0;width:13px;height:13px;cursor:pointer;flex-shrink:0;accent-color:var(--accent);}
-  .legend-toggle input[type=checkbox]:not(:checked) ~ .legend-dot{opacity:0.25;}
-  .legend-toggle:has(input:not(:checked)){opacity:0.55;}
+  .legend-toggle{display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer;font-size:11px;}
+  .legend-toggle input{margin:0;width:12px;height:12px;}
 
-  /* ---- Breakdown bars ---- */
-  .bd-body{padding:16px 20px;}
-  .bd-row{margin-bottom:13px;}
-  .bd-row:last-child{margin-bottom:0;}
-  .bd-row .bd-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;}
-  .bd-row .bd-label b{font-weight:600;}
-  .bd-row .bd-label span{font-family:var(--mono);color:var(--muted);font-size:12px;}
-  .bd-bar-track{height:9px;background:#eef1f2;border-radius:5px;overflow:hidden;}
-  .bd-bar-fill{height:100%;border-radius:5px;background:var(--accent);}
+  .bd-body{padding:14px 18px;max-height:560px;overflow-y:auto;}
+  .bd-row{margin-bottom:11px;}
+  .bd-row .bd-label{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;}
+  .bd-row .bd-label span{font-family:var(--mono);color:var(--muted);font-size:11.5px;}
+  .bd-bar-track{height:8px;background:#eef1f2;border-radius:4px;overflow:hidden;}
+  .bd-bar-fill{height:100%;border-radius:4px;}
 
-  /* ---- Detail drawer ---- */
-  #detail{
-    position:fixed;top:0;right:0;bottom:0;z-index:20;width:400px;
-    background:var(--paper);border-left:1px solid var(--border);
-    transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;
-    box-shadow:-10px 0 30px rgba(0,0,0,.15);
-  }
+  details.methodology{background:#fff;border:1px solid var(--border);border-radius:12px;margin-top:16px;}
+  details.methodology summary{padding:16px 20px;cursor:pointer;font-weight:700;font-size:13.5px;list-style:none;display:flex;justify-content:space-between;}
+  details.methodology summary::-webkit-details-marker{display:none;}
+  details.methodology summary:after{content:'+';color:var(--muted);}
+  details.methodology[open] summary:after{content:'\2212';}
+  .m-body{padding:0 20px 20px;font-size:12.5px;line-height:1.65;}
+  .m-body h4{font-size:11px;text-transform:uppercase;color:var(--muted);margin:16px 0 6px;}
+  .m-body table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0;}
+  .m-body td,.m-body th{padding:5px 8px;border-bottom:1px solid #eef1f2;text-align:left;}
+  .m-body code{background:#f1f3f4;padding:2px 5px;border-radius:4px;font-family:var(--mono);font-size:11.5px;}
+
+  #detail{position:fixed;top:0;right:0;bottom:0;z-index:20;width:380px;background:#fff;border-left:1px solid var(--border);
+    transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;box-shadow:-10px 0 30px rgba(0,0,0,.15);}
   #detail.open{transform:translateX(0);}
-  #detail .dclose{position:absolute;top:16px;right:16px;background:#f1f3f4;border:none;color:var(--muted);font-size:18px;cursor:pointer;width:30px;height:30px;border-radius:50%;}
-  #detail .dhead{padding:26px 26px 18px;border-bottom:1px solid var(--border);}
-  .status-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:4px 11px;border-radius:20px;margin-bottom:12px;font-weight:700;color:#fff;}
-  #detail h3{margin:0 0 4px;font-size:19px;line-height:1.3;}
-  #detail .operator{color:var(--muted);font-size:13.5px;}
-  #detail .dbody{padding:20px 26px;}
-  .kv{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f2f3;font-size:13.5px;}
+  #detail .dclose{position:absolute;top:14px;right:14px;background:#f1f3f4;border:none;color:var(--muted);font-size:16px;cursor:pointer;width:28px;height:28px;border-radius:50%;}
+  #detail .dhead{padding:22px 22px 16px;border-bottom:1px solid var(--border);}
+  .status-tag{display:inline-block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:3px 10px;border-radius:20px;margin-bottom:10px;font-weight:700;color:#fff;}
+  #detail h3{margin:0 0 4px;font-size:17px;}
+  #detail .operator{color:var(--muted);font-size:12.5px;}
+  .dbody{padding:18px 22px;}
+  .kv{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f2f3;font-size:12.5px;}
   .kv .k{color:var(--muted);}
   .kv .v{font-family:var(--mono);text-align:right;}
-  .water-callout{background:var(--accent-soft);border:1px solid #bfe3e1;border-radius:10px;padding:16px;margin:18px 0;}
-  .water-callout .wlabel{font-size:11px;text-transform:uppercase;color:var(--accent);font-weight:700;letter-spacing:.06em;}
-  .water-callout .wnum{font-family:var(--mono);font-size:25px;margin:5px 0;}
-  .water-callout .wsub{font-size:11.5px;color:var(--muted);}
-  .research-note{background:var(--warn-soft);border:1px solid #f3d9a4;border-radius:10px;padding:14px 16px;margin:16px 0;font-size:12.5px;line-height:1.5;color:#7a5413;}
-  .note{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
-
-  /* ---- Methodology accordion ---- */
-  .methodology{background:var(--paper);border:1px solid var(--border);border-radius:14px;margin-top:18px;}
-  .methodology summary{padding:18px 24px;cursor:pointer;font-weight:700;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center;}
-  .methodology summary::-webkit-details-marker{display:none;}
-  .methodology summary:after{content:'+';font-size:20px;color:var(--muted);}
-  .methodology[open] summary:after{content:'\2212';}
-  .methodology .m-body{padding:0 24px 22px;font-size:13px;line-height:1.7;color:var(--text);}
-  .methodology .m-body h4{font-size:12px;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;letter-spacing:.04em;}
-  .methodology table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0;}
-  .methodology td,.methodology th{padding:6px 10px;border-bottom:1px solid #eef1f2;text-align:left;}
-  .methodology th{color:var(--muted);font-weight:600;}
-  .methodology code{background:#f1f3f4;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;}
-
-  .mapboxgl-popup-content{background:#fff!important;color:var(--text)!important;border:1px solid var(--border);border-radius:8px;font-family:var(--font);padding:10px 12px!important;font-size:12.5px;}
-  .mapboxgl-popup-tip{border-top-color:#fff!important;border-bottom-color:#fff!important;}
+  .callout{border-radius:10px;padding:14px;margin:14px 0;}
+  .callout.depl{background:var(--depl-soft);border:1px solid #bcdce8;}
+  .callout.cont{background:var(--cont-soft);border:1px solid #ecccbf;}
+  .callout .clabel{font-size:10.5px;text-transform:uppercase;font-weight:700;letter-spacing:.05em;}
+  .callout.depl .clabel{color:var(--depl);}
+  .callout.cont .clabel{color:var(--cont);}
+  .callout .cnum{font-family:var(--mono);font-size:21px;margin:4px 0;}
+  .callout .csub{font-size:11px;color:var(--muted);line-height:1.4;}
+  .research-note{background:#fef4e3;border:1px solid #f3d9a4;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:11.5px;color:#7a5413;line-height:1.5;}
+  .note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
 
   @media (max-width: 900px){
     .stat-row{grid-template-columns:repeat(2,1fr);}
-    .controls{grid-template-columns:1fr;}
     .main-grid{grid-template-columns:1fr;}
     #detail{width:100%;}
+    .mode-switch{flex-direction:column;}
   }
 </style>
 </head>
 <body>
-<style>
-  :root{
-    --nav-bg:#0c1a24;
-    --nav-text:#e8edf0;
-    --nav-muted:#9aabb4;
-    --nav-accent:#5fd0c7;
-  }
-  #sitenav{
-    background:var(--nav-bg);padding:0 24px;display:flex;align-items:center;
-    justify-content:space-between;height:56px;font-family:Arial,Helvetica,'Helvetica Neue',sans-serif;
-  }
-  #sitenav .brand{color:#fff;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.2px;}
-  #sitenav .navlinks{display:flex;gap:6px;}
-  #sitenav .navlinks a{
-    color:var(--nav-muted);text-decoration:none;font-size:13.5px;font-weight:600;
-    padding:8px 14px;border-radius:7px;transition:all .15s;
-  }
-  #sitenav .navlinks a:hover{color:#fff;background:rgba(255,255,255,0.08);}
-  #sitenav .navlinks a.active{color:#fff;background:rgba(95,208,199,0.16);}
-  @media (max-width:640px){
-    #sitenav{flex-direction:column;height:auto;padding:14px 18px;gap:10px;}
-    #sitenav .navlinks{flex-wrap:wrap;justify-content:center;}
-  }
-</style>
 <nav id="sitenav">
   <a class="brand" href="dashboard.html">Edwards Aquifer Data Center Watch</a>
   <div class="navlinks">
@@ -170,118 +141,164 @@
     <a href="contact.html">Contact</a>
   </div>
 </nav>
+
 <div class="wrap">
+  <h1>Edwards Aquifer Data Center Watch</h1>
+  <div class="byline">By <b>Kaitlyn Tran</b> and <b>Dr. Fenil Gandhi</b> &middot; preliminary screening, June 2026</div>
 
-  <header>
-    <div class="kicker">Preliminary screening &middot; June 2026</div>
-    <h1>Edwards Aquifer Data Center Watch</h1>
-    <div class="byline">By <b>Kaitlyn Tran</b> and <b>Dr. Fenil Gandhi</b> &middot; An 8-county screening of estimated data center water use over the Edwards Aquifer</div>
-    <div class="scope-note">These 8 counties (Bexar, Comal, Hays, Kinney, Medina, Travis, Uvalde, Williamson) are the counties TCEQ designates under the Edwards Aquifer Protection Program.</div>
-
-    <div class="stat-row">
-      <div class="stat-card">
-        <div class="v">39</div>
-        <div class="k">Data centers found across 8 counties</div>
-      </div>
-      <div class="stat-card">
-        <div class="v" id="statQuantified">17</div>
-        <div class="k">Have public information on power use</div>
-      </div>
-      <div class="stat-card">
-        <div class="v" id="statWater">8.0 billion gal/yr</div>
-        <div class="k" id="statWaterDesc">Estimated water use for those facilities with known power use. This is a low estimate; more facilities don't disclose their power use.</div>
-      </div>
-      <div class="stat-card warn">
-        <div class="v" id="statNoGCD">19</div>
-        <div class="k">Of 39 facilities sit outside any Groundwater Conservation District, meaning no agency has authority to limit how much water they pump</div>
-      </div>
-    </div>
-  </header>
-
-  <div class="controls">
-    <div class="control-block">
-      <label>Load factor <span class="val" id="loadFactorVal">100%</span></label>
-      <input type="range" id="loadFactor" min="10" max="100" step="5" value="100">
-      <div class="control-hint">These estimates assume facilities run at full power (100% load). Drag down to see estimates at lower, more typical usage levels. Every number on this page updates as you drag.</div>
-    </div>
-    <div class="control-block">
-      <label>2050 growth rate <span class="val" id="growthRateVal">13.2%/yr</span></label>
-      <input type="range" id="growthRate" min="0" max="20" step="0.5" value="13.2">
-      <div class="control-hint">Data center water use in this region grew about 13.2% a year between 2017 and 2027. Drag to see what that growth rate, continued for the next 23 years, would mean by 2050.</div>
-    </div>
+  <div class="mode-switch">
+    <button class="mode-btn depl" id="btnDepletion" data-active="true">
+      <span class="tag">Depletion</span>
+      <p>Scoped to the 8 counties the Edwards Aquifer Authority (EAA) has jurisdiction over: Bexar, Medina, Uvalde, Atascosa, Caldwell, Comal, Guadalupe, Hays. Excludes Travis, Kinney, and Williamson, where EAA has no jurisdiction.</p>
+    </button>
+    <button class="mode-btn cont" id="btnContamination">
+      <span class="tag">Pollution potential</span>
+      <p>Scoped to the 8 counties the Texas Commission on Environmental Quality (TCEQ) designates under the Edwards Aquifer Protection Program: Bexar, Comal, Hays, Kinney, Medina, Travis, Uvalde, Williamson. Excludes Atascosa, Caldwell, and Guadalupe, which have no TCEQ recharge-zone program.</p>
+    </button>
   </div>
 
-  <div class="main-grid">
-    <div class="panel">
-      <div class="panel-head"><h2>Facility map &middot; 8-county study area</h2></div>
-      <div id="map">
-        <div class="map-legend">
-          <div class="legend-row"><span class="legend-dot" style="background:var(--op);"></span>Operating</div>
-          <div class="legend-row"><span class="legend-dot" style="background:var(--constr);"></span>Under construction</div>
-          <div class="legend-row"><span class="legend-dot" style="background:var(--planned);"></span>Planned</div>
-          <div class="legend-row"><span class="legend-dot dash"></span>Capacity unknown</div>
-          <div style="border-top:1px solid var(--border);margin:8px 0 6px;"></div>
-          <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-recharge" checked><span class="legend-dot" style="background:#0e7c7b;border-radius:3px;"></span>Recharge zone</label>
-          <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-transition" checked><span class="legend-dot" style="background:#5b9bd5;border-radius:3px;"></span>Transition zone</label>
-          <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing" checked><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing zone</label>
-          <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing-transition" checked><span class="legend-dot" style="background:#d4a843;border-radius:3px;"></span>Contributing (transition)</label>
-          <div style="border-top:1px solid var(--border);margin:8px 0 6px;"></div>
-          <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="gcd"><span class="legend-dot" style="background:#9b6fb0;border-radius:3px;"></span>Groundwater districts</label>
-          <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="rivers"><span class="legend-dot" style="background:#3a8ec7;border-radius:3px;"></span>Major rivers</label>
+
+  <!-- ===================== DEPLETION VIEW ===================== -->
+  <div id="depletionView">
+    <div class="stat-row">
+      <div class="stat-card"><div class="v" id="d-stat-total">23</div><div class="k">Data centers found across 8 EAA-jurisdiction counties</div></div>
+      <div class="stat-card"><div class="v" id="d-stat-q">13</div><div class="k">Have public information on power use</div></div>
+      <div class="stat-card"><div class="v" id="d-stat-water">4.6 B gal/yr</div><div class="k">Estimated water use for facilities with known power use</div></div>
+      <div class="stat-card"><div class="v" id="d-stat-nogcd">17</div><div class="k">Of 23 facilities fall under EAA's direct groundwater permitting</div></div>
+    </div>
+
+    <div class="controls-row">
+      <div class="ctl-block">
+        <label>Load factor <span class="val" id="lfVal">100%</span></label>
+        <input type="range" id="loadFactor" min="10" max="100" step="5" value="100">
+      </div>
+      <div class="ctl-block">
+        <label>Through year <span class="val" id="yearVal">2027</span></label>
+        <input type="range" id="yearSlider" min="1996" max="2027" step="1" value="2027">
+      </div>
+      <div class="ctl-block" style="flex:0.7;">
+        <label>Find operator</label>
+        <input type="text" class="search-box" id="opSearch" placeholder="e.g. Microsoft">
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-head"><h2>Depletion map &middot; EAA jurisdiction</h2></div>
+        <div id="map-depl" style="height:560px;position:relative;">
+          <div class="map-legend">
+            <div class="legend-section-label">Facility status</div>
+            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Operating" checked><span class="legend-dot" style="background:var(--op);"></span>Operating</label>
+            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Under Construction" checked><span class="legend-dot" style="background:var(--constr);"></span>Under construction</label>
+            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Planned" checked><span class="legend-dot" style="background:var(--planned);"></span>Planned</label>
+            <label class="legend-toggle"><input type="checkbox" id="toggleUnknownCap" checked><span class="legend-dot dash"></span>Capacity unknown</label>
+            <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
+            <div class="legend-section-label">Edwards Aquifer Zones</div>
+            <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-artesian" checked><span class="legend-dot" style="background:#0e6e8e;border-radius:3px;"></span>Artesian Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-recharge" checked><span class="legend-dot" style="background:#13a8a0;border-radius:3px;"></span>Recharge Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-contributing"><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing Zone</label>
+            <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
+            <div class="legend-section-label">Jurisdiction</div>
+            <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="gcd"><span class="legend-dot" style="background:#9b6fb0;border-radius:3px;"></span>Groundwater Districts</label>
+          </div>
         </div>
       </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="panel"><div class="panel-head"><h2>Water use by county</h2></div><div class="bd-body" id="byCounty"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Water use by operator</h2></div><div class="bd-body" id="byOperator"></div></div>
+      </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:18px;">
-      <div class="panel">
-        <div class="panel-head"><h2>Water use by county</h2></div>
-        <div class="bd-body" id="byCounty"></div>
+    <details class="methodology">
+      <summary>How depletion numbers are calculated</summary>
+      <div class="m-body">
+        <p>No water meter readings exist publicly for these sites, so every number here is an estimate based on each facility's reported power use, not a direct measurement.</p>
+        <h4>Why this map only covers 8 counties, and a different 8 than the pollution map</h4>
+        <p>This map is scoped to the 8 counties the Edwards Aquifer Authority (EAA) has jurisdiction over: Bexar, Medina, Uvalde, Atascosa, Caldwell, Comal, Guadalupe, and Hays. That's a different list from the pollution map's 8 TCEQ counties. Travis, Kinney, and Williamson have no EAA jurisdiction, so facilities there (19 of them) are excluded from this map even though they appear on the pollution map. Atascosa has no confirmed, locatable data center project as of this research.</p>
+        <h4>The formula</h4>
+        <p><code>Water per year = Power use (MW) &times; 12.78 &times; load factor</code></p>
+        <p>The 12.78 figure comes from running a 1-megawatt facility for a year at an industry-average rate of 1.8 liters of water per kilowatt-hour.</p>
+        <h4>Most facilities don't pump the aquifer directly</h4>
+        <p>Most data centers in this region draw from municipal water systems (e.g. San Antonio Water System) rather than operating their own industrial well, even when located within EAA jurisdiction. SAWS itself operates 92 wells pumping about 204 million gallons a day to serve its customers. A data center's water use adds demand onto that municipal system, which in turn pumps the aquifer on its behalf, an indirect but real link, not a direct private withdrawal in most cases.</p>
+        <h4>Groundwater Conservation Districts</h4>
+        <p>GCDs are the local entities with legal authority to regulate how much groundwater can be pumped in their area. Outside a GCD boundary, Texas groundwater is governed by the "rule of capture," giving landowners broad rights to pump with few limits. Source: TWDB official statewide GCD map, current as of November 2019.</p>
+        <h4>Guadalupe and Caldwell County addition</h4>
+        <p>The Edwards Aquifer Authority has jurisdiction over portions of Guadalupe and Caldwell counties, which TCEQ's Edwards Aquifer Protection Program does not cover. We added 3 facilities here: CloudBurst's 1.2 GW campus (Guadalupe/Hays line, with a developer-disclosed 24,000 gal/day water use figure), and Tract's and Prime Data Centers' campuses near Lockhart/Uhland in Caldwell County. Checking these against the EAA's own zone map found that none of the three sit within EAA's mapped Artesian, Recharge, or Contributing zones, their coordinates fall just east of where EAA's mapped boundary ends, even though the counties themselves are listed as partial EAA jurisdiction. All three do fall within the Plum Creek Groundwater Conservation District. Atascosa County is not included: no confirmed, locatable project exists as of this research.</p>
+        <h4>Known issues with the data</h4>
+        <p>Of the 28 data centers in the original 7-county screening: 14 have public power-use information, 9 don't disclose it, 4 could not be confirmed as real or distinct facilities, and 1 (Samsung's Austin fab) is not a data center and is excluded. Williamson County's 11 facilities were added from local news reporting rather than the comptroller registry.</p>
       </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Water use by operator</h2></div>
-        <div class="bd-body" id="byOperator"></div>
-      </div>
-    </div>
+    </details>
   </div>
 
-  <details class="methodology">
-    <summary>How these numbers are calculated</summary>
-    <div class="m-body">
-      <p>No water meter readings exist publicly for these sites, so every number on this page is an estimate based on each facility's reported power use, not a direct measurement.</p>
-
-      <h4>The formula</h4>
-      <p><code>Water per year = Power use (MW) &times; 12.78 &times; load factor</code></p>
-      <p>The 12.78 figure comes from running a 1-megawatt facility for a year at an industry-average rate of 1.8 liters of water per kilowatt-hour. A 100-megawatt facility running at full capacity would use roughly enough water to supply a small town for a year.</p>
-
-      <h4>Why we used an industry average instead of each company's own numbers</h4>
-      <table>
-        <tr><th>Company</th><th>Water used per unit of power (liters/kWh)</th></tr>
-        <tr><td>Apple / Meta (most water-efficient, as reported)</td><td>0.26</td></tr>
-        <tr><td>Amazon</td><td>0.18</td></tr>
-        <tr><td>Microsoft</td><td>0.49</td></tr>
-        <tr><td>Google</td><td>1.10</td></tr>
-        <tr><td><b>Industry average (used in this report)</b></td><td><b>1.80</b></td></tr>
-      </table>
-      <p>Most companies report using less water than this average. We applied the industry average uniformly because most facilities in this region haven't published their own figures, so these totals likely sit on the higher end of what's realistic. A future study could substitute each company's actual numbers where available.</p>
-
-      <h4>2050 projection</h4>
-      <p>This applies the 2017&ndash;2027 growth rate forward another 23 years. Over a horizon that long, small changes in the assumed rate produce very different results, which is why the slider above lets you adjust it. These are sensitivity scenarios, not forecasts.</p>
-
-      <h4>What this screening doesn't include yet</h4>
-      <p>Not yet incorporated: groundwater level readings, spring flow records, and satellite measurements of underground water storage. The recharge zone boundary used in the map and in the calculation above is the official TCEQ regulatory boundary (City of Austin GIS mirror of the TCEQ Edwards Aquifer Protection Program map, 30 TAC 213), not an approximation. The remaining limitation is facility location precision, described above.</p>
-
-      <h4>Known issues with the data</h4>
-      <p>Of the 28 data centers in the original 7-county screening: 14 have public information on power use, 9 don't disclose it, 4 could not be confirmed as real or distinct facilities (possible duplicates or mislabeled entries), and 1 (Samsung's chip-manufacturing plant in Austin) is not a data center and is excluded from all totals.</p>
-
-      <h4>Williamson County addition</h4>
-      <p>Williamson is one of 8 counties TCEQ designates as part of the Edwards Aquifer Protection Program area (30 TAC 213), but it was not included in the original 7-county report. We added it here using local news reporting (Austin Free Press, Hello Georgetown) rather than the comptroller registry used for the other 7 counties, since the registry alone didn't capture Williamson's scale. 11 facilities are listed; only 3 have a publicly reported capacity figure (685 MW combined). County-wide reporting suggests roughly 8 facilities are currently operating with about 500 MW combined, and around 30 are operating or planned in total, both well in excess of what we can name and locate individually here.</p>
-      <p>We checked all 39 facilities, including Williamson, against the official TCEQ recharge zone boundary map. 3 Williamson facilities fall within a regulated zone (1 Recharge Zone, 2 Transition Zone); the rest, including several large planned campuses in Hutto and Taylor, do not. As noted above, this check uses estimated city-center coordinates rather than verified street addresses, so it should be read as a starting point, not a final determination, for any individual facility.</p>
-
-      <h4>Groundwater Conservation Districts and major rivers</h4>
-      <p>The map also includes Groundwater Conservation District (GCD) boundaries, sourced from TWDB's official statewide GCD map (current as of November 2019), and major rivers (TWDB, 2010), both toggleable from the legend. GCDs are the local entities with legal authority to regulate how much groundwater can be pumped in their area; outside a GCD boundary, groundwater pumping in Texas is governed by the "rule of capture," which gives landowners broad rights to pump groundwater under their property with few limits. Checking our 39 facilities against this map found that 19 sit outside any GCD boundary at all. The same city-center coordinate caveat applies here as it does for the aquifer zone check above.</p>
+  <!-- ===================== CONTAMINATION VIEW ===================== -->
+  <div id="contaminationView" style="display:none;">
+    <div class="stat-row">
+      <div class="stat-card"><div class="v" id="c-stat-total">39</div><div class="k">Data centers found across 8 counties in the Edwards Aquifer Protection Program</div></div>
+      <div class="stat-card"><div class="v" id="c-stat-onzone">8</div><div class="k">Of those, confirmed sitting on a TCEQ-regulated zone (Recharge, Transition, Contributing, or Contributing within the Transition Zone)</div></div>
+      <div class="stat-card"><div class="v" id="c-stat-runoff">15.3M gal</div><div class="k">Estimated stormwater runoff from a single 1-inch storm, across quantified sites</div></div>
+      <div class="stat-card"><div class="v" id="c-stat-blowdown">2.0B gal/yr</div><div class="k">Estimated cooling-tower blowdown discharge across quantified sites: concentrated wastewater containing biocides, corrosion inhibitors, and trace heavy metals</div></div>
     </div>
-  </details>
 
+    <div class="controls-row">
+      <div class="ctl-block">
+        <label>Through year <span class="val" id="cYearVal">2027</span></label>
+        <input type="range" id="cYearSlider" min="1996" max="2027" step="1" value="2027">
+      </div>
+      <div class="ctl-block">
+        <label>Impervious surface assumption <span class="val" id="impervVal">75%</span></label>
+        <input type="range" id="impervSlider" min="60" max="80" step="1" value="75">
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-head"><h2>Pollution potential map &middot; TCEQ jurisdiction</h2></div>
+        <div id="map-cont" style="height:560px;position:relative;">
+          <div class="map-legend">
+            <div class="legend-section-label">Runoff Risk</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#a3492f;"></span>High</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#d4a843;"></span>Medium</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#7f9098;"></span>Low</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#c4cdd1;"></span>Unknown</div>
+            <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
+            <div class="legend-section-label">Regulated Zones by TCEQ</div>
+            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-recharge" checked><span class="legend-dot" style="background:#0e7c7b;border-radius:3px;"></span>Recharge Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-transition" checked><span class="legend-dot" style="background:#5b9bd5;border-radius:3px;"></span>Transition Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing"><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing-transition"><span class="legend-dot" style="background:#d4a843;border-radius:3px;"></span>Contributing (Transition)</label>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Estimated runoff by facility</h2></div>
+        <div class="bd-body" id="byRunoff"></div>
+      </div>
+    </div>
+
+    <details class="methodology">
+      <summary>How pollution potential is calculated</summary>
+      <div class="m-body">
+        <p>This estimates how much stormwater runoff a facility's developed site could generate during a single rainfall event, using established EPA-recognized methodology, not site-specific engineering data. It is a comparative volume estimate, not a measurement of actual pollution.</p>
+        <h4>Step 1: Power capacity to site size</h4>
+        <p><code>Acres = MW &divide; 3.5</code></p>
+        <p>Source: Hines Research, "every three to four megawatts of power capacity requires an acre of land."</p>
+        <h4>Step 2: Site size to impervious surface</h4>
+        <p><code>Impervious acres = Site acres &times; impervious fraction (adjustable, 60-80%)</code></p>
+        <p>Source: JPC Engineering civil infrastructure analysis, "the combined impervious fraction on a developed data center campus can exceed 70 to 80 percent of total site area" (buildings, parking, access roads, substation yards, equipment pads). The slider above defaults to 75%, the midpoint, and lets you test the full cited range; for comparison, typical land-use studies classify commercial development at ~85% impervious and industrial at ~75%.</p>
+        <h4>Step 3: Impervious surface to runoff volume</h4>
+        <p><code>Rv = 0.05 + 0.9 &times; I</code> &nbsp; <code>Runoff = Rv &times; Rainfall(1") &times; Acres &divide; 12</code></p>
+        <p>This is the EPA-recognized "Simple Method" (Schueler, 1987), used in state stormwater design manuals nationwide, applied here with Texas's standard 1-inch design storm depth.</p>
+        <h4>Why this matters in karst terrain</h4>
+        <p>The Edwards Aquifer is a karst aquifer: fractures, sinkholes, and caves can carry surface runoff directly underground with minimal natural filtration. Roughly 15% of the continental US has karst topography, and it is recognized as especially vulnerable to stormwater contaminant infiltration. A facility's runoff volume matters most where it sits on or near a TCEQ-regulated zone.</p>
+        <h4>A second pathway: cooling-tower blowdown</h4>
+        <p>Stormwater runoff is about contamination that washes in from outside. Blowdown is different: it's wastewater the facility itself routinely discharges. Evaporative cooling systems concentrate dissolved minerals and added chemicals (biocides to control algae and mold, corrosion inhibitors, and trace heavy metals like copper and zinc from degrading components) in the water that doesn't evaporate. To prevent scale buildup, a portion of that concentrated water has to be periodically drained, this is "blowdown."</p>
+        <p><code>Blowdown per year = Total water use &divide; Cycles of Concentration</code></p>
+        <p>Cycles of concentration is an industry setting typically run between 4 and 6; lower cycles mean more frequent blowdown. We use 4 (the more conservative, higher-blowdown end of that range) applied to the same total water-use figure as the depletion map. This is a derived estimate from documented industry ratios, not a site-specific measurement, no facility here publicly discloses its actual blowdown volume or chemical treatment program.</p>
+        <h4>What this is not</h4>
+        <p>Neither runoff nor blowdown measures or assumes the presence of any specific pollutant. Both are volume estimates based on industry-average figures applied uniformly to every facility, not real site plans or discharge permits. Treat them as relative comparisons, not engineering-grade figures.</p>
+      </div>
+    </details>
+  </div>
 </div>
 
 <div id="detail">
@@ -296,269 +313,400 @@
     <div class="kv"><span class="k">Year</span><span class="v" id="dYear"></span></div>
     <div class="kv"><span class="k">Cooling type</span><span class="v" id="dCooling"></span></div>
     <div class="kv"><span class="k">Power use</span><span class="v" id="dMW"></span></div>
-    <div class="kv"><span class="k">Aquifer zone (verified)</span><span class="v" id="dRecharge"></span></div>
+    <div class="kv"><span class="k">EAA zone</span><span class="v" id="dEAA"></span></div>
+    <div class="kv"><span class="k">TCEQ recharge/transition zone</span><span class="v" id="dTCEQ"></span></div>
     <div class="kv"><span class="k">Groundwater district</span><span class="v" id="dGCD"></span></div>
 
-    <div class="water-callout" id="waterBlock">
-      <div class="wlabel">Estimated water use</div>
-      <div class="wnum" id="dWater"></div>
-      <div class="wsub" id="dWaterSub"></div>
+    <div class="callout depl" id="waterBlock">
+      <div class="clabel">Estimated water use</div>
+      <div class="cnum" id="dWater"></div>
+      <div class="csub" id="dWaterSub"></div>
+    </div>
+
+    <div class="callout cont" id="runoffBlock">
+      <div class="clabel">Estimated stormwater runoff (per 1" storm)</div>
+      <div class="cnum" id="dRunoff"></div>
+      <div class="csub" id="dRunoffSub"></div>
+    </div>
+
+    <div class="callout cont" id="blowdownBlock">
+      <div class="clabel">Estimated cooling-tower blowdown</div>
+      <div class="cnum" id="dBlowdown"></div>
+      <div class="csub" id="dBlowdownSub"></div>
     </div>
 
     <div class="research-note" id="researchNote" style="display:none;"></div>
-
-    <div class="note">Location is a city/area-level estimate, not a parcel-precise address. Water-use figures are engineering estimates from capacity and a water-use-efficiency coefficient, not metered withdrawals. Source: Gandhi &amp; Tran, "Edwards Aquifer Data Center Watch," preliminary screening, June 2026.</div>
+    <div class="note">Location is a city/area-level estimate, not a parcel-precise address. All figures are estimates based on public registry data, industry-average ratios, and EPA-recognized methodology, not direct measurements.</div>
   </div>
 </div>
 
 <script>
+let mapDepl, mapCont;
 let DC_DATA = null;
-let map;
-const statusColor = {Operating: '#2f8f5b', 'Under Construction': '#c1791f', Planned: '#5b62b8'};
-const WATER_PER_MW = 12.78; // acre-feet per MW per year, from the report's formula
+let loadFactor = 1.0;
+let currentYear = 2027;
+let currentYearCont = 2027;
+let imperviousFraction = 0.75;
+let currentStatuses = new Set(['Operating','Under Construction','Planned']);
+let currentSearch = '';
+const statusColor = {Operating:'#2f8f5b','Under Construction':'#c1791f',Planned:'#5b62b8'};
+const WATER_PER_MW = 12.78;
 const GALLONS_PER_ACFT = 325851;
+const EAA_COUNTIES = ['Bexar','Medina','Uvalde','Atascosa','Caldwell','Comal','Guadalupe','Hays'];
+const TCEQ_COUNTIES = ['Bexar','Comal','Hays','Kinney','Medina','Travis','Uvalde','Williamson'];
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpdGx5bnRyYW4iLCJhIjoiY21xbHF4emtuMTRyMzJxcTB2dzExamw5ciJ9.aIui5ZZrbTSth0vZmABAdQ';
 
 function fmtNum(n){ return Math.round(n).toLocaleString(); }
 function fmtGallons(acft){
-  const gallons = acft * GALLONS_PER_ACFT;
-  if (gallons >= 1e9) return (gallons/1e9).toFixed(1) + ' billion gal';
-  if (gallons >= 1e6) return (gallons/1e6).toFixed(1) + ' million gal';
-  return fmtNum(gallons) + ' gal';
+  const g = acft * GALLONS_PER_ACFT;
+  if (g >= 1e9) return (g/1e9).toFixed(1) + ' B gal';
+  if (g >= 1e6) return (g/1e6).toFixed(1) + ' M gal';
+  return fmtNum(g) + ' gal';
 }
-function titleCase(str){
-  return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+function fmtGalRaw(g){
+  if (g >= 1e6) return (g/1e6).toFixed(1) + 'M gal';
+  if (g >= 1e3) return (g/1e3).toFixed(0) + 'K gal';
+  return fmtNum(g) + ' gal';
 }
-
-let loadFactor = 1.0;
-let growthRate = 0.132;
-
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpdGx5bnRyYW4iLCJhIjoiY21xbHF4emtuMTRyMzJxcTB2dzExamw5ciJ9.aIui5ZZrbTSth0vZmABAdQ';
-try {
-  map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/light-v11',
-    center: [-98.1, 29.95],
-    zoom: 7.1
-  });
-  map.on('error', (e) => {
-    console.error('Mapbox runtime error:', e.error ? e.error.message : e);
-  });
-} catch(err) {
-  console.error('Map init failed:', err);
-  document.getElementById('map').innerHTML =
-    '<div style="padding:40px;color:#c0392b;font-family:monospace;font-size:12px;white-space:pre-wrap;">Map failed to load in this preview:\n' +
-    err.message + '\n\nThis is a known limitation of the in-chat preview sandbox. Open this file in a real browser, or host it on GitHub Pages, and the map will render normally.</div>';
-}
-
-if (map) {
-map.on('load', () => {
-  fetch('data/study_counties.geojson').then(r=>r.json()).then(geo=>{
-    map.addSource('study-counties', {type:'geojson', data: geo});
-    map.addLayer({id:'study-counties-line', type:'line', source:'study-counties',
-      paint:{'line-color':'#6b7b87','line-width':1,'line-dasharray':[2,2]}});
-  }).catch(err => console.error('Failed to load study-counties layer:', err));
-
-  const zoneLayers = [
-    {id:'zone-recharge', file:'zone_recharge.geojson', color:'#0e7c7b'},
-    {id:'zone-transition', file:'zone_transition.geojson', color:'#5b9bd5'},
-    {id:'zone-contributing', file:'zone_contributing.geojson', color:'#c9b458'},
-    {id:'zone-contributing-transition', file:'zone_contributing_transition.geojson', color:'#d4a843'}
-  ];
-  zoneLayers.forEach(z => {
-    fetch('data/' + z.file).then(r=>r.json()).then(geo=>{
-      map.addSource(z.id, {type:'geojson', data: geo});
-      map.addLayer({id:z.id+'-fill', type:'fill', source:z.id,
-        paint:{'fill-color':z.color,'fill-opacity':0.35}});
-      map.addLayer({id:z.id+'-line', type:'line', source:z.id,
-        paint:{'line-color':z.color,'line-width':1,'line-opacity':0.7}});
-    }).catch(err => console.error('Failed to load ' + z.file + ':', err));
-  });
-
-  fetch('data/gcd_boundaries.geojson').then(r=>r.json()).then(geo=>{
-    map.addSource('gcd-boundaries', {type:'geojson', data: geo});
-    map.addLayer({id:'gcd-fill', type:'fill', source:'gcd-boundaries', layout:{visibility:'none'},
-      paint:{'fill-color':'#9b6fb0','fill-opacity':0.12}});
-    map.addLayer({id:'gcd-line', type:'line', source:'gcd-boundaries', layout:{visibility:'none'},
-      paint:{'line-color':'#7a4d8f','line-width':1.2,'line-dasharray':[1,1]}});
-  }).catch(err => console.error('Failed to load gcd_boundaries.geojson:', err));
-
-  fetch('data/major_rivers.geojson').then(r=>r.json()).then(geo=>{
-    map.addSource('major-rivers', {type:'geojson', data: geo});
-    map.addLayer({id:'rivers-line', type:'line', source:'major-rivers', layout:{visibility:'none'},
-      paint:{'line-color':'#3a8ec7','line-width':1.5,'line-opacity':0.8}});
-  }).catch(err => console.error('Failed to load major_rivers.geojson:', err));
-
-  if (DC_DATA) {
-    addDataCenterMapLayers();
-  }
-});
-}
-
-// Data centers load independently of the map, so stats/breakdowns work even if
-// the map itself fails to render (e.g. in sandboxed preview environments).
-fetch('data/edwards_datacenters.geojson')
-  .then(r => r.json())
-  .then(geo => {
-    DC_DATA = geo;
-    renderAll();
-    if (map && map.loaded()) {
-      addDataCenterMapLayers();
-    }
-  })
-  .catch(err => {
-    console.error('Failed to load data centers:', err);
-    document.getElementById('byCounty').innerHTML = '<div style="color:#c0392b;font-size:12.5px;">Could not load facility data.</div>';
-    document.getElementById('byOperator').innerHTML = '<div style="color:#c0392b;font-size:12.5px;">Could not load facility data.</div>';
-  });
-
-function addDataCenterMapLayers(){
-  if (!map || !DC_DATA || map.getSource('dcs')) return;
-  map.addSource('dcs', {type:'geojson', data: DC_DATA});
-  map.addLayer({
-    id:'dc-quantified', type:'circle', source:'dcs',
-    filter: ['has','mw'],
-    paint:{
-      'circle-radius':['interpolate',['linear'],['get','mw'],20,6,200,16],
-      'circle-color':['match',['get','status'],'Operating',statusColor.Operating,'Under Construction',statusColor['Under Construction'],'Planned',statusColor.Planned,'#999'],
-      'circle-opacity':0.9,'circle-stroke-width':1.4,'circle-stroke-color':'#fff'
-    }
-  });
-  map.addLayer({
-    id:'dc-pending', type:'circle', source:'dcs',
-    filter: ['!',['has','mw']],
-    paint:{
-      'circle-radius':7,'circle-color':'#fff','circle-opacity':0.6,
-      'circle-stroke-width':1.6,'circle-stroke-color':'#9aa5ab'
-    }
-  });
-  ['dc-quantified','dc-pending'].forEach(layer=>{
-    map.on('click', layer, e => openDetail(e.features[0].properties));
-    map.on('mouseenter', layer, () => map.getCanvas().style.cursor='pointer');
-    map.on('mouseleave', layer, () => map.getCanvas().style.cursor='');
-  });
-}
-
-function renderAll(){
-  if(!DC_DATA) return;
-  const quantified = DC_DATA.features.filter(f=>f.properties.mw!=null);
-  const totalWater = quantified.reduce((s,f)=>s+f.properties.mw*WATER_PER_MW*loadFactor,0);
-  const totalMW = quantified.reduce((s,f)=>s+f.properties.mw,0);
-
-  document.getElementById('statQuantified').textContent = quantified.length;
-  const unquantifiedCount = DC_DATA.features.length - quantified.length;
-  document.getElementById('statWaterDesc').textContent =
-    `Estimated water use for those ${quantified.length} facilities. This is a low estimate; ${unquantifiedCount} more facilities don't disclose their power use.`;
-  document.getElementById('statWater').textContent = fmtGallons(totalWater) + '/yr';
-
-  const noGCDCount = DC_DATA.features.filter(f => !f.properties.gcd_name).length;
-  document.getElementById('statNoGCD').textContent = noGCDCount;
-
-  // By county
-  const byCounty = {};
-  quantified.forEach(f=>{
-    const c = f.properties.county;
-    byCounty[c] = (byCounty[c]||0) + f.properties.mw*WATER_PER_MW*loadFactor;
-  });
-  const countyEntries = Object.entries(byCounty).sort((a,b)=>b[1]-a[1]);
-  const maxCounty = countyEntries.length ? countyEntries[0][1] : 1;
-  document.getElementById('byCounty').innerHTML = countyEntries.map(([name,val])=>`
-    <div class="bd-row">
-      <div class="bd-label"><b>${name}</b><span>${fmtGallons(val)}/yr</span></div>
-      <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(val/maxCounty*100).toFixed(1)}%"></div></div>
-    </div>`).join('');
-
-  // By operator
-  const byOp = {};
-  quantified.forEach(f=>{
-    const o = f.properties.operator;
-    byOp[o] = (byOp[o]||0) + f.properties.mw*WATER_PER_MW*loadFactor;
-  });
-  const opEntries = Object.entries(byOp).sort((a,b)=>b[1]-a[1]);
-  const maxOp = opEntries.length ? opEntries[0][1] : 1;
-  document.getElementById('byOperator').innerHTML = opEntries.map(([name,val])=>`
-    <div class="bd-row">
-      <div class="bd-label"><b>${name}</b><span>${fmtGallons(val)}/yr</span></div>
-      <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(val/maxOp*100).toFixed(1)}%"></div></div>
-    </div>`).join('');
-}
-
 function updateSliderFill(slider){
   const min = parseFloat(slider.min), max = parseFloat(slider.max), val = parseFloat(slider.value);
   const pct = ((val - min) / (max - min)) * 100;
   slider.style.background = `linear-gradient(to right, var(--accent) ${pct}%, #e2e7e9 ${pct}%)`;
 }
 
-document.getElementById('loadFactor').addEventListener('input', e=>{
-  loadFactor = parseFloat(e.target.value)/100;
-  document.getElementById('loadFactorVal').textContent = e.target.value + '%';
-  updateSliderFill(e.target);
-  renderAll();
-});
-document.getElementById('growthRate').addEventListener('input', e=>{
-  growthRate = parseFloat(e.target.value)/100;
-  document.getElementById('growthRateVal').textContent = e.target.value + '%/yr';
-  updateSliderFill(e.target);
-});
-updateSliderFill(document.getElementById('loadFactor'));
-updateSliderFill(document.getElementById('growthRate'));
+try {
+  mapDepl = new mapboxgl.Map({container:'map-depl', style:'mapbox://styles/mapbox/light-v11', center:[-98.1,29.95], zoom:7.1});
+  mapCont = new mapboxgl.Map({container:'map-cont', style:'mapbox://styles/mapbox/light-v11', center:[-98.1,29.95], zoom:7.1});
+} catch(err) {
+  console.error('Map init failed:', err);
+}
 
-document.querySelectorAll('.zone-toggle').forEach(checkbox => {
-  checkbox.addEventListener('change', e => {
-    const zoneId = e.target.dataset.zone;
-    const visibility = e.target.checked ? 'visible' : 'none';
-    if (map && map.getLayer(zoneId + '-fill')) {
-      map.setLayoutProperty(zoneId + '-fill', 'visibility', visibility);
-    }
-    if (map && map.getLayer(zoneId + '-line')) {
-      map.setLayoutProperty(zoneId + '-line', 'visibility', visibility);
+function loadZoneLayer(map, file, id, color, defaultVisible){
+  fetch('data/'+file).then(r=>r.json()).then(geo=>{
+    map.addSource(id,{type:'geojson',data:geo});
+    map.addLayer({id:id+'-fill',type:'fill',source:id,layout:{visibility:defaultVisible?'visible':'none'},
+      paint:{'fill-color':color,'fill-opacity':0.32}});
+    map.addLayer({id:id+'-line',type:'line',source:id,layout:{visibility:defaultVisible?'visible':'none'},
+      paint:{'line-color':color,'line-width':1,'line-opacity':0.7}});
+  }).catch(e=>console.error('Failed to load '+file, e));
+}
+
+if (mapDepl) {
+mapDepl.on('load', () => {
+  loadZoneLayer(mapDepl, 'eaa_artesian.geojson', 'eaa-artesian', '#0e6e8e', true);
+  loadZoneLayer(mapDepl, 'eaa_recharge.geojson', 'eaa-recharge', '#13a8a0', true);
+  loadZoneLayer(mapDepl, 'eaa_contributing.geojson', 'eaa-contributing', '#c9b458', false);
+  fetch('data/gcd_boundaries.geojson').then(r=>r.json()).then(geo=>{
+    mapDepl.addSource('gcd',{type:'geojson',data:geo});
+    mapDepl.addLayer({id:'gcd-fill',type:'fill',source:'gcd',layout:{visibility:'none'},paint:{'fill-color':'#9b6fb0','fill-opacity':0.12}});
+    mapDepl.addLayer({id:'gcd-line',type:'line',source:'gcd',layout:{visibility:'none'},paint:{'line-color':'#7a4d8f','line-width':1.2,'line-dasharray':[1,1]}});
+  }).catch(e=>console.error(e));
+  if (DC_DATA) addDeplPoints();
+});
+}
+if (mapCont) {
+mapCont.on('load', () => {
+  loadZoneLayer(mapCont, 'zone_recharge.geojson', 'zone-recharge', '#0e7c7b', true);
+  loadZoneLayer(mapCont, 'zone_transition.geojson', 'zone-transition', '#5b9bd5', true);
+  loadZoneLayer(mapCont, 'zone_contributing.geojson', 'zone-contributing', '#c9b458', false);
+  loadZoneLayer(mapCont, 'zone_contributing_transition.geojson', 'zone-contributing-transition', '#d4a843', false);
+  if (DC_DATA) addContPoints();
+});
+}
+
+function filterGeoJSON(geo, counties){
+  return {type:'FeatureCollection', features: geo.features.filter(f=>counties.includes(f.properties.county))};
+}
+function buildContGeoJSON(){
+  const filtered = filterGeoJSON(DC_DATA, TCEQ_COUNTIES);
+  filtered.features.forEach(f=>{
+    const p = f.properties;
+    p.runoff_gallons_per_storm = liveRunoff(p.mw);
+    p.contamination_risk_tier = liveRiskTier(p);
+    if (p.mw != null) {
+      const waterAcft = p.mw * WATER_PER_MW;
+      p.blowdown_gallons_per_year = Math.round(waterAcft * GALLONS_PER_ACFT / CYCLES_OF_CONCENTRATION);
+    } else {
+      p.blowdown_gallons_per_year = null;
     }
   });
+  return filtered;
+}
+function refreshContMap(){
+  if (!mapCont || !mapCont.getSource('dcs-cont')) return;
+  mapCont.getSource('dcs-cont').setData(buildContGeoJSON());
+}
+
+function addDeplPoints(){
+  if (!mapDepl || mapDepl.getSource('dcs-depl')) return;
+  const deplData = filterGeoJSON(DC_DATA, EAA_COUNTIES);
+  mapDepl.addSource('dcs-depl',{type:'geojson',data:deplData});
+  mapDepl.addLayer({id:'dcd-q',type:'circle',source:'dcs-depl',filter:['has','mw'],
+    paint:{'circle-radius':['interpolate',['linear'],['get','mw'],20,6,200,16],
+      'circle-color':['match',['get','status'],'Operating',statusColor.Operating,'Under Construction',statusColor['Under Construction'],'Planned',statusColor.Planned,'#999'],
+      'circle-opacity':0.9,'circle-stroke-width':1.4,'circle-stroke-color':'#fff'}});
+  mapDepl.addLayer({id:'dcd-p',type:'circle',source:'dcs-depl',filter:['!',['has','mw']],
+    paint:{'circle-radius':7,'circle-color':'#fff','circle-opacity':0.6,'circle-stroke-width':1.6,'circle-stroke-color':'#9aa5ab'}});
+  ['dcd-q','dcd-p'].forEach(l=>{
+    mapDepl.on('click',l,e=>openDetail(e.features[0].properties));
+    mapDepl.on('mouseenter',l,()=>mapDepl.getCanvas().style.cursor='pointer');
+    mapDepl.on('mouseleave',l,()=>mapDepl.getCanvas().style.cursor='');
+  });
+  applyDeplFilter();
+}
+function addContPoints(){
+  if (!mapCont || mapCont.getSource('dcs-cont')) return;
+  const contData = buildContGeoJSON();
+  mapCont.addSource('dcs-cont',{type:'geojson',data:contData});
+  mapCont.addLayer({id:'dcc-pts',type:'circle',source:'dcs-cont',
+    paint:{'circle-radius':['interpolate',['linear'],['get','runoff_gallons_per_storm'],10000,5,1000000,18],
+      'circle-color':['match',['get','contamination_risk_tier'],'High','#a3492f','Medium','#d4a843','Low','#7f9098','#c4cdd1'],
+      'circle-opacity':0.85,'circle-stroke-width':1.2,'circle-stroke-color':'#fff'}});
+  mapCont.on('click','dcc-pts',e=>openDetail(e.features[0].properties));
+  mapCont.on('mouseenter','dcc-pts',()=>mapCont.getCanvas().style.cursor='pointer');
+  mapCont.on('mouseleave','dcc-pts',()=>mapCont.getCanvas().style.cursor='');
+  applyContFilter();
+}
+
+function applyContFilter(){
+  if (!mapCont || !mapCont.getLayer('dcc-pts')) return;
+  mapCont.setFilter('dcc-pts', ['<=',['get','year'],currentYearCont]);
+}
+
+fetch('data/edwards_datacenters.geojson').then(r=>r.json()).then(geo=>{
+  DC_DATA = geo;
+  renderDepletion();
+  renderContamination();
+  if (mapDepl && mapDepl.loaded()) addDeplPoints();
+  if (mapCont && mapCont.loaded()) addContPoints();
+}).catch(e=>{
+  console.error('Failed to load data centers:', e);
+  document.getElementById('byCounty').innerHTML = '<div style="color:#a3492f;font-size:12px;">Could not load facility data.</div>';
 });
+
+function passesFilters(p){
+  if (!EAA_COUNTIES.includes(p.county)) return false;
+  if (!currentStatuses.has(p.status)) return false;
+  if (p.year != null && p.year > currentYear) return false;
+  if (currentSearch && !((p.operator||'').toLowerCase().includes(currentSearch) || (p.name||'').toLowerCase().includes(currentSearch))) return false;
+  return true;
+}
+
+function passesContFilters(p){
+  if (!TCEQ_COUNTIES.includes(p.county)) return false;
+  if (p.year != null && p.year > currentYearCont) return false;
+  return true;
+}
+
+function applyDeplFilter(){
+  if (!mapDepl || !mapDepl.getLayer('dcd-q')) return;
+  const statusList = Array.from(currentStatuses);
+  const statusExpr = ['in', ['get','status'], ['literal', statusList]];
+  const yearExpr = ['<=',['get','year'],currentYear];
+  mapDepl.setFilter('dcd-q', ['all', ['has','mw'], statusExpr, yearExpr]);
+  mapDepl.setFilter('dcd-p', ['all', ['!',['has','mw']], statusExpr, yearExpr]);
+}
+
+function renderDepletion(){
+  if (!DC_DATA) return;
+  const all = DC_DATA.features.map(f=>f.properties).filter(passesFilters);
+  const quantified = all.filter(p=>p.mw!=null);
+  const totalWater = quantified.reduce((s,p)=>s+p.mw*WATER_PER_MW*loadFactor,0);
+  document.getElementById('d-stat-total').textContent = all.length;
+  document.getElementById('d-stat-q').textContent = quantified.length;
+  document.getElementById('d-stat-water').textContent = fmtGallons(totalWater) + '/yr';
+  const eaaDirect = all.filter(p=>p.gcd_name === 'EDWARDS AQUIFER AUTHORITY').length;
+  document.getElementById('d-stat-nogcd').textContent = eaaDirect;
+
+  const byCounty = {};
+  quantified.forEach(p=>{byCounty[p.county]=(byCounty[p.county]||0)+p.mw*WATER_PER_MW*loadFactor;});
+  const ce = Object.entries(byCounty).sort((a,b)=>b[1]-a[1]);
+  const maxC = ce.length?ce[0][1]:1;
+  document.getElementById('byCounty').innerHTML = ce.map(([n,v])=>`
+    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${fmtGallons(v)}/yr</span></div>
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxC*100).toFixed(1)}%;background:var(--depl);"></div></div></div>`).join('');
+
+  const byOp = {};
+  quantified.forEach(p=>{byOp[p.operator]=(byOp[p.operator]||0)+p.mw*WATER_PER_MW*loadFactor;});
+  const oe = Object.entries(byOp).sort((a,b)=>b[1]-a[1]);
+  const maxO = oe.length?oe[0][1]:1;
+  document.getElementById('byOperator').innerHTML = oe.map(([n,v])=>`
+    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${fmtGallons(v)}/yr</span></div>
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxO*100).toFixed(1)}%;background:var(--depl);"></div></div></div>`).join('');
+
+  applyDeplFilter();
+}
+
+const MW_PER_ACRE = 3.5;
+const CYCLES_OF_CONCENTRATION = 4; // conservative end of typical 4-6 industry range; lower CoC = more blowdown
+const DESIGN_RAINFALL_IN = 1.0;
+
+function liveRunoff(mw){
+  if (mw == null) return null;
+  const acres = mw / MW_PER_ACRE;
+  const rv = 0.05 + 0.9 * imperviousFraction;
+  const runoffAcft = rv * DESIGN_RAINFALL_IN * acres / 12;
+  return Math.round(runoffAcft * GALLONS_PER_ACFT);
+}
+function liveRiskTier(p){
+  const runoff = liveRunoff(p.mw);
+  if (runoff == null) return 'Unknown (capacity not public)';
+  const onZone = !!p.recharge_zone_type;
+  if (onZone && runoff > 100000) return 'High';
+  if (onZone || runoff > 200000) return 'Medium';
+  return 'Low';
+}
+
+function renderContamination(){
+  if (!DC_DATA) return;
+  const all = DC_DATA.features.map(f=>f.properties).filter(passesContFilters);
+  const quantified = all.filter(p=>p.mw!=null);
+  quantified.forEach(p=>{
+    p._liveRunoff = liveRunoff(p.mw);
+    p._liveTier = liveRiskTier(p);
+    p._liveWaterAcft = p.mw * WATER_PER_MW;
+    p._liveBlowdownGal = p._liveWaterAcft * GALLONS_PER_ACFT / CYCLES_OF_CONCENTRATION;
+  });
+  const onZone = all.filter(p=>p.recharge_zone_type).length;
+  const totalRunoff = quantified.reduce((s,p)=>s+(p._liveRunoff||0),0);
+  const totalBlowdown = quantified.reduce((s,p)=>s+(p._liveBlowdownGal||0),0);
+  document.getElementById('c-stat-total').textContent = all.length;
+  document.getElementById('c-stat-onzone').textContent = onZone;
+  document.getElementById('c-stat-runoff').textContent = (totalRunoff/1e6).toFixed(1) + 'M gal';
+  document.getElementById('c-stat-blowdown').textContent = fmtGallons(totalBlowdown/GALLONS_PER_ACFT) + '/yr';
+
+  const ranked = quantified.slice().sort((a,b)=>(b._liveRunoff||0)-(a._liveRunoff||0));
+  const maxR = ranked.length?ranked[0]._liveRunoff:1;
+  document.getElementById('byRunoff').innerHTML = ranked.map(p=>{
+    const color = p._liveTier==='High'?'#a3492f':(p._liveTier==='Medium'?'#d4a843':'#7f9098');
+    return `<div class="bd-row"><div class="bd-label"><b>${p.name}</b><span>${fmtGalRaw(p._liveRunoff||0)}</span></div>
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${((p._liveRunoff||0)/maxR*100).toFixed(1)}%;background:${color};"></div></div></div>`;
+  }).join('');
+}
+
+document.getElementById('loadFactor').addEventListener('input', e=>{
+  loadFactor = parseFloat(e.target.value)/100;
+  document.getElementById('lfVal').textContent = e.target.value+'%';
+  updateSliderFill(e.target);
+  renderDepletion();
+});
+document.getElementById('yearSlider').addEventListener('input', e=>{
+  currentYear = parseInt(e.target.value);
+  updateSliderFill(e.target);
+  document.getElementById('yearVal').textContent = currentYear;
+  renderDepletion();
+  applyDeplFilter();
+});
+document.getElementById('cYearSlider').addEventListener('input', e=>{
+  currentYearCont = parseInt(e.target.value);
+  updateSliderFill(e.target);
+  document.getElementById('cYearVal').textContent = currentYearCont;
+  renderContamination();
+  applyContFilter();
+});
+document.getElementById('impervSlider').addEventListener('input', e=>{
+  imperviousFraction = parseInt(e.target.value)/100;
+  updateSliderFill(e.target);
+  document.getElementById('impervVal').textContent = e.target.value+'%';
+  renderContamination();
+  refreshContMap();
+});
+document.getElementById('opSearch').addEventListener('input', e=>{
+  currentSearch = e.target.value.toLowerCase();
+  renderDepletion();
+});
+document.querySelectorAll('.status-check').forEach(cb=>{
+  cb.addEventListener('change', e=>{
+    if (e.target.checked) currentStatuses.add(e.target.value);
+    else currentStatuses.delete(e.target.value);
+    renderDepletion();
+    applyDeplFilter();
+  });
+});
+document.querySelectorAll('.eaa-toggle').forEach(cb=>{
+  cb.addEventListener('change', e=>{
+    const id = e.target.dataset.zone;
+    const v = e.target.checked?'visible':'none';
+    if (mapDepl && mapDepl.getLayer(id+'-fill')) { mapDepl.setLayoutProperty(id+'-fill','visibility',v); mapDepl.setLayoutProperty(id+'-line','visibility',v); }
+  });
+});
+document.getElementById('toggleUnknownCap').addEventListener('change', e=>{
+  if (mapDepl && mapDepl.getLayer('dcd-p')) {
+    mapDepl.setLayoutProperty('dcd-p','visibility', e.target.checked?'visible':'none');
+  }
+});
+document.querySelectorAll('#contaminationView .zone-toggle').forEach(cb=>{
+  cb.addEventListener('change', e=>{
+    const id = e.target.dataset.zone;
+    const v = e.target.checked?'visible':'none';
+    if (mapCont && mapCont.getLayer(id+'-fill')) mapCont.setLayoutProperty(id+'-fill','visibility',v);
+    if (mapCont && mapCont.getLayer(id+'-line')) mapCont.setLayoutProperty(id+'-line','visibility',v);
+  });
+});
+
+document.getElementById('btnDepletion').addEventListener('click', ()=>{
+  document.getElementById('btnDepletion').dataset.active='true';
+  document.getElementById('btnContamination').dataset.active='false';
+  document.getElementById('btnContamination').classList.remove('cont-active');
+  document.getElementById('depletionView').style.display='block';
+  document.getElementById('contaminationView').style.display='none';
+  if (mapDepl) setTimeout(()=>mapDepl.resize(),50);
+});
+document.getElementById('btnContamination').addEventListener('click', ()=>{
+  document.getElementById('btnContamination').dataset.active='true';
+  document.getElementById('btnContamination').classList.add('cont-active');
+  document.getElementById('btnDepletion').dataset.active='false';
+  document.getElementById('depletionView').style.display='none';
+  document.getElementById('contaminationView').style.display='block';
+  if (mapCont) setTimeout(()=>mapCont.resize(),50);
+});
+
+updateSliderFill(document.getElementById('loadFactor'));
+updateSliderFill(document.getElementById('yearSlider'));
+updateSliderFill(document.getElementById('cYearSlider'));
+updateSliderFill(document.getElementById('impervSlider'));
 
 function openDetail(p){
   document.getElementById('detail').classList.add('open');
   const tag = document.getElementById('dStatusTag');
-  tag.textContent = p.status;
-  tag.style.background = statusColor[p.status] || '#9aa5ab';
-
+  tag.textContent = p.status; tag.style.background = statusColor[p.status] || '#888';
   document.getElementById('dName').textContent = p.name;
   document.getElementById('dOperator').textContent = p.operator;
-  document.getElementById('dCounty').textContent = p.county + ' County';
+  document.getElementById('dCounty').textContent = p.county+' County';
   document.getElementById('dYear').textContent = p.year;
   document.getElementById('dCooling').textContent = p.cooling;
-  document.getElementById('dRecharge').textContent = p.recharge_zone_type
-    ? p.recharge_zone_type.replace('Edwards Aquifer ', '')
-    : 'Not in a regulated zone (at this coordinate)';
-  document.getElementById('dGCD').textContent = p.gcd_name
-    ? titleCase(p.gcd_name)
-    : 'None (no GCD jurisdiction here)';
+  document.getElementById('dMW').textContent = p.mw!=null ? p.mw+' MW' : 'Unknown';
+  document.getElementById('dEAA').textContent = p.eaa_zone || 'Not in EAA Artesian/Recharge/Contributing zone';
+  document.getElementById('dTCEQ').textContent = p.recharge_zone_type ? p.recharge_zone_type.replace('Edwards Aquifer ','') : 'Not in a TCEQ-regulated zone';
+  document.getElementById('dGCD').textContent = p.gcd_name ? p.gcd_name.replace(/\b\w/g,c=>c.toUpperCase()) : 'None (no GCD jurisdiction here)';
 
   const waterBlock = document.getElementById('waterBlock');
-  const researchNote = document.getElementById('researchNote');
-
   if (p.mw != null) {
-    document.getElementById('dMW').textContent = p.mw + ' MW';
-    const water = p.mw * WATER_PER_MW * loadFactor;
-    document.getElementById('dWater').textContent = fmtGallons(water) + '/yr';
-    document.getElementById('dWaterSub').textContent =
-      `At ${Math.round(loadFactor*100)}% load factor, using the report's 12.78 acre-feet per MW per year conversion`;
-    waterBlock.style.display = 'block';
-  } else {
-    document.getElementById('dMW').textContent = 'Unknown';
-    waterBlock.style.display = 'none';
-  }
+    const water = p.mw*WATER_PER_MW*loadFactor;
+    document.getElementById('dWater').textContent = fmtGallons(water)+'/yr';
+    document.getElementById('dWaterSub').textContent = `At ${Math.round(loadFactor*100)}% load factor`;
+    waterBlock.style.display='block';
+  } else { waterBlock.style.display='none'; }
 
-  if (p.note) {
-    researchNote.style.display = 'block';
-    researchNote.textContent = p.note;
-  } else {
-    researchNote.style.display = 'none';
-  }
+  const runoffBlock = document.getElementById('runoffBlock');
+  if (p.runoff_gallons_per_storm != null) {
+    document.getElementById('dRunoff').textContent = fmtGalRaw(p.runoff_gallons_per_storm);
+    document.getElementById('dRunoffSub').textContent = `${p.site_acres} acre site, ~${Math.round(imperviousFraction*100)}% impervious, risk tier: ${p.contamination_risk_tier}`;
+    runoffBlock.style.display='block';
+  } else { runoffBlock.style.display='none'; }
+
+  const blowdownBlock = document.getElementById('blowdownBlock');
+  if (p.blowdown_gallons_per_year != null) {
+    document.getElementById('dBlowdown').textContent = fmtGalRaw(p.blowdown_gallons_per_year) + '/yr';
+    document.getElementById('dBlowdownSub').textContent = `Concentrated wastewater containing biocides, corrosion inhibitors, and trace heavy metals, at ${CYCLES_OF_CONCENTRATION} cycles of concentration`;
+    blowdownBlock.style.display='block';
+  } else { blowdownBlock.style.display='none'; }
+
+  const note = document.getElementById('researchNote');
+  if (p.note) { note.style.display='block'; note.textContent = p.note; } else { note.style.display='none'; }
 }
-function closeDetail(){
-  document.getElementById('detail').classList.remove('open');
-}
+function closeDetail(){ document.getElementById('detail').classList.remove('open'); }
 </script>
-<footer style="text-align:center;font-size:12px;color:#6b7b87;padding:24px 0 36px;font-family:Arial,Helvetica,sans-serif;">Preliminary screening, published June 2026</footer>
 </body>
 </html>
