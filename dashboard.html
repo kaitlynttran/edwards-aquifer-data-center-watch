@@ -34,6 +34,20 @@
 
   /* ---- Mode switcher ---- */
   .mode-switch{display:flex;gap:10px;margin-bottom:20px;}
+  .shared-controls{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+  .fullscreen-btn{position:absolute;top:10px;right:10px;z-index:6;width:32px;height:32px;border-radius:7px;
+    background:rgba(255,255,255,.95);border:1px solid var(--border);cursor:pointer;font-size:15px;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.12);}
+  .fullscreen-btn:hover{background:#fff;}
+  .zoom-ctl{position:absolute;bottom:14px;right:10px;z-index:6;display:flex;flex-direction:column;
+    border:1px solid var(--border);border-radius:7px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.12);}
+  .zoom-ctl button{width:30px;height:28px;background:rgba(255,255,255,.95);border:none;border-bottom:1px solid var(--border);
+    cursor:pointer;font-size:15px;font-weight:700;color:var(--text);}
+  .zoom-ctl button:last-child{border-bottom:none;}
+  .zoom-ctl button:hover{background:#fff;}
+  .basemap-toggle{position:absolute;top:10px;right:50px;z-index:6;}
+  .basemap-toggle select{background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:7px;
+    padding:6px 8px;font-size:11.5px;font-family:var(--font);cursor:pointer;}
   .mode-btn{
     flex:1;background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px 20px;
     cursor:pointer;text-align:left;transition:all .15s;
@@ -65,6 +79,13 @@
   .search-box{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:var(--font);}
   .chip-row{display:flex;flex-wrap:wrap;gap:6px;}
   .chip{border:1.5px solid var(--border);background:#fff;border-radius:8px;padding:5px 11px;font-size:12px;cursor:pointer;font-weight:500;}
+  .county-pill{
+    border-radius:20px;padding:6px 16px;font-size:12.5px;font-weight:700;cursor:pointer;
+    background:var(--ink);color:#fff;border:2.5px solid var(--county-color, #555);
+    transition:opacity .15s;
+  }
+  .county-pill[data-active="false"]{opacity:0.35;}
+  .county-pill:hover{opacity:0.85;}
   .chip[data-active="true"]{background:var(--accent);color:#fff;border-color:var(--accent);}
 
   .main-grid{display:grid;grid-template-columns:2.4fr 1fr;gap:16px;}
@@ -146,6 +167,22 @@
   <h1>Edwards Aquifer Data Center Watch</h1>
   <div class="byline">By <b>Kaitlyn Tran</b> and <b>Dr. Fenil Gandhi</b> &middot; preliminary screening, June 2026</div>
 
+  <div class="shared-controls">
+    <div class="ctl-block" style="flex:1.4;">
+      <label style="margin-bottom:8px;">Facility status</label>
+      <div class="chip-row">
+        <label class="legend-toggle"><input type="checkbox" class="status-check" value="Operating" checked><span class="legend-dot" style="background:var(--op);"></span>Operating</label>
+        <label class="legend-toggle"><input type="checkbox" class="status-check" value="Under Construction" checked><span class="legend-dot" style="background:var(--constr);"></span>Under construction</label>
+        <label class="legend-toggle"><input type="checkbox" class="status-check" value="Planned" checked><span class="legend-dot" style="background:var(--planned);"></span>Planned</label>
+        <label class="legend-toggle"><input type="checkbox" id="toggleUnknownCap" checked><span class="legend-dot dash"></span>Capacity unknown</label>
+      </div>
+    </div>
+    <div class="ctl-block" style="flex:2;">
+      <label style="margin-bottom:8px;">Counties shown</label>
+      <div class="chip-row" id="countyChips"></div>
+    </div>
+  </div>
+
   <div class="mode-switch">
     <button class="mode-btn depl" id="btnDepletion" data-active="true">
       <span class="tag">Depletion</span>
@@ -187,11 +224,11 @@
         <div class="panel-head"><h2>Depletion map &middot; EAA jurisdiction</h2></div>
         <div id="map-depl" style="height:560px;position:relative;">
           <div class="map-legend">
-            <div class="legend-section-label">Facility status</div>
-            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Operating" checked><span class="legend-dot" style="background:var(--op);"></span>Operating</label>
-            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Under Construction" checked><span class="legend-dot" style="background:var(--constr);"></span>Under construction</label>
-            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Planned" checked><span class="legend-dot" style="background:var(--planned);"></span>Planned</label>
-            <label class="legend-toggle"><input type="checkbox" id="toggleUnknownCap" checked><span class="legend-dot dash"></span>Capacity unknown</label>
+            <div class="legend-section-label">Water Use</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#a3492f;"></span>High</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#d4a843;"></span>Medium</div>
+            <div class="legend-row"><span class="legend-dot" style="background:#7f9098;"></span>Low</div>
+            <div class="legend-row"><span class="legend-dot dash"></span>Unknown</div>
             <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
             <div class="legend-section-label">Edwards Aquifer Zones</div>
             <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-artesian" checked><span class="legend-dot" style="background:#0e6e8e;border-radius:3px;"></span>Artesian Zone</label>
@@ -200,6 +237,17 @@
             <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
             <div class="legend-section-label">Jurisdiction</div>
             <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="gcd"><span class="legend-dot" style="background:#9b6fb0;border-radius:3px;"></span>Groundwater Districts</label>
+          </div>
+          <button class="fullscreen-btn" data-target="map-depl">&#x26F6;</button>
+          <div class="basemap-toggle">
+            <select id="basemapDepl">
+              <option value="light-v11">Map</option>
+              <option value="satellite-streets-v12">Satellite</option>
+            </select>
+          </div>
+          <div class="zoom-ctl" data-target="map-depl">
+            <button class="zoom-in">+</button>
+            <button class="zoom-out">&minus;</button>
           </div>
         </div>
       </div>
@@ -213,6 +261,8 @@
       <summary>How depletion numbers are calculated</summary>
       <div class="m-body">
         <p>No water meter readings exist publicly for these sites, so every number here is an estimate based on each facility's reported power use, not a direct measurement.</p>
+        <h4>Water use tiers</h4>
+        <p>Facilities are colored by estimated annual water use: <b>High</b> (&ge;600 million gallons/year, roughly 144+ MW), <b>Medium</b> (200&ndash;600 million gallons/year, roughly 48&ndash;144 MW), <b>Low</b> (under 200 million gallons/year). These break points are based on the actual spread of facilities in this dataset, not an external standard.</p>
         <h4>Why this map only covers 8 counties, and a different 8 than the pollution map</h4>
         <p>This map is scoped to the 8 counties the Edwards Aquifer Authority (EAA) has jurisdiction over: Bexar, Medina, Uvalde, Atascosa, Caldwell, Comal, Guadalupe, and Hays. That's a different list from the pollution map's 8 TCEQ counties. Travis, Kinney, and Williamson have no EAA jurisdiction, so facilities there (19 of them) are excluded from this map even though they appear on the pollution map. Atascosa has no confirmed, locatable data center project as of this research.</p>
         <h4>The formula</h4>
@@ -270,11 +320,22 @@
             <div class="legend-section-label">Cooling-Tower Blowdown</div>
             <div class="legend-row" style="font-size:10.5px;color:var(--muted);line-height:1.4;max-width:170px;">Total water use &divide; 4 cycles of concentration. Click a facility for its estimate.</div>
           </div>
+          <button class="fullscreen-btn" data-target="map-cont">&#x26F6;</button>
+          <div class="basemap-toggle">
+            <select id="basemapCont">
+              <option value="light-v11">Map</option>
+              <option value="satellite-streets-v12">Satellite</option>
+            </select>
+          </div>
+          <div class="zoom-ctl" data-target="map-cont">
+            <button class="zoom-in">+</button>
+            <button class="zoom-out">&minus;</button>
+          </div>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Estimated runoff by facility</h2></div>
-        <div class="bd-body" id="byRunoff"></div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="panel"><div class="panel-head"><h2>Water pollution by county</h2></div><div class="bd-body" id="pollutionByCounty"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Water pollution by operator</h2></div><div class="bd-body" id="byRunoff"></div></div>
       </div>
     </div>
 
@@ -357,6 +418,33 @@ const WATER_PER_MW = 12.78;
 const GALLONS_PER_ACFT = 325851;
 const EAA_COUNTIES = ['Bexar','Medina','Uvalde','Atascosa','Caldwell','Comal','Guadalupe','Hays'];
 const TCEQ_COUNTIES = ['Bexar','Comal','Hays','Kinney','Medina','Travis','Uvalde','Williamson'];
+const ALL_COUNTIES = Array.from(new Set([...EAA_COUNTIES, ...TCEQ_COUNTIES])).sort();
+let checkedCounties = new Set(ALL_COUNTIES);
+
+const COUNTY_COLORS = {
+  'Atascosa':'#2f8f5b','Bexar':'#c1791f','Caldwell':'#5b62b8','Comal':'#0e7c7b',
+  'Guadalupe':'#a3492f','Hays':'#9b6fb0','Kinney':'#3a8ec7','Medina':'#c1791f',
+  'Travis':'#2f8f5b','Uvalde':'#d4a843','Williamson':'#5b9bd5'
+};
+
+function buildCountyChips(){
+  const el = document.getElementById('countyChips');
+  el.innerHTML = ALL_COUNTIES.map(c =>
+    `<button class="county-pill" data-county="${c}" data-active="true" style="--county-color:${COUNTY_COLORS[c]||'#888'}">${c}</button>`
+  ).join('');
+  document.querySelectorAll('.county-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const c = btn.dataset.county;
+      const nowActive = btn.dataset.active !== 'true';
+      btn.dataset.active = nowActive ? 'true' : 'false';
+      if (nowActive) checkedCounties.add(c);
+      else checkedCounties.delete(c);
+      renderDepletion(); applyDeplFilter();
+      renderContamination(); applyContFilter();
+    });
+  });
+}
+buildCountyChips();
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpdGx5bnRyYW4iLCJhIjoiY21xbHF4emtuMTRyMzJxcTB2dzExamw5ciJ9.aIui5ZZrbTSth0vZmABAdQ';
 
@@ -395,8 +483,7 @@ function loadZoneLayer(map, file, id, color, defaultVisible){
   }).catch(e=>console.error('Failed to load '+file, e));
 }
 
-if (mapDepl) {
-mapDepl.on('load', () => {
+function setupDeplLayers(){
   loadZoneLayer(mapDepl, 'eaa_artesian.geojson', 'eaa-artesian', '#0e6e8e', true);
   loadZoneLayer(mapDepl, 'eaa_recharge.geojson', 'eaa-recharge', '#13a8a0', true);
   loadZoneLayer(mapDepl, 'eaa_contributing.geojson', 'eaa-contributing', '#c9b458', false);
@@ -406,16 +493,19 @@ mapDepl.on('load', () => {
     mapDepl.addLayer({id:'gcd-line',type:'line',source:'gcd',layout:{visibility:'none'},paint:{'line-color':'#7a4d8f','line-width':1.2,'line-dasharray':[1,1]}});
   }).catch(e=>console.error(e));
   if (DC_DATA) addDeplPoints();
-});
 }
-if (mapCont) {
-mapCont.on('load', () => {
+function setupContLayers(){
   loadZoneLayer(mapCont, 'zone_recharge.geojson', 'zone-recharge', '#0e7c7b', true);
   loadZoneLayer(mapCont, 'zone_transition.geojson', 'zone-transition', '#5b9bd5', true);
   loadZoneLayer(mapCont, 'zone_contributing.geojson', 'zone-contributing', '#c9b458', false);
   loadZoneLayer(mapCont, 'zone_contributing_transition.geojson', 'zone-contributing-transition', '#d4a843', false);
   if (DC_DATA) addContPoints();
-});
+}
+if (mapDepl) {
+  mapDepl.on('style.load', setupDeplLayers);
+}
+if (mapCont) {
+  mapCont.on('style.load', setupContLayers);
 }
 
 function filterGeoJSON(geo, counties){
@@ -447,7 +537,7 @@ function addDeplPoints(){
   mapDepl.addSource('dcs-depl',{type:'geojson',data:deplData});
   mapDepl.addLayer({id:'dcd-q',type:'circle',source:'dcs-depl',filter:['has','mw'],
     paint:{'circle-radius':['interpolate',['linear'],['get','mw'],20,6,200,16],
-      'circle-color':['match',['get','status'],'Operating',statusColor.Operating,'Under Construction',statusColor['Under Construction'],'Planned',statusColor.Planned,'#999'],
+      'circle-color':['step',['get','mw'],'#7f9098',48,'#d4a843',144,'#a3492f'],
       'circle-opacity':0.9,'circle-stroke-width':1.4,'circle-stroke-color':'#fff'}});
   mapDepl.addLayer({id:'dcd-p',type:'circle',source:'dcs-depl',filter:['!',['has','mw']],
     paint:{'circle-radius':7,'circle-color':'#fff','circle-opacity':0.6,'circle-stroke-width':1.6,'circle-stroke-color':'#9aa5ab'}});
@@ -474,7 +564,8 @@ function addContPoints(){
 
 function applyContFilter(){
   if (!mapCont || !mapCont.getLayer('dcc-pts')) return;
-  mapCont.setFilter('dcc-pts', ['<=',['get','year'],currentYearCont]);
+  const countyExpr = ['in', ['get','county'], ['literal', Array.from(checkedCounties)]];
+  mapCont.setFilter('dcc-pts', ['all', ['<=',['get','year'],currentYearCont], countyExpr]);
 }
 
 fetch('data/edwards_datacenters.geojson').then(r=>r.json()).then(geo=>{
@@ -490,6 +581,7 @@ fetch('data/edwards_datacenters.geojson').then(r=>r.json()).then(geo=>{
 
 function passesFilters(p){
   if (!EAA_COUNTIES.includes(p.county)) return false;
+  if (!checkedCounties.has(p.county)) return false;
   if (!currentStatuses.has(p.status)) return false;
   if (p.year != null && p.year > currentYear) return false;
   if (currentSearch && !((p.operator||'').toLowerCase().includes(currentSearch) || (p.name||'').toLowerCase().includes(currentSearch))) return false;
@@ -498,6 +590,7 @@ function passesFilters(p){
 
 function passesContFilters(p){
   if (!TCEQ_COUNTIES.includes(p.county)) return false;
+  if (!checkedCounties.has(p.county)) return false;
   if (p.year != null && p.year > currentYearCont) return false;
   return true;
 }
@@ -507,8 +600,9 @@ function applyDeplFilter(){
   const statusList = Array.from(currentStatuses);
   const statusExpr = ['in', ['get','status'], ['literal', statusList]];
   const yearExpr = ['<=',['get','year'],currentYear];
-  mapDepl.setFilter('dcd-q', ['all', ['has','mw'], statusExpr, yearExpr]);
-  mapDepl.setFilter('dcd-p', ['all', ['!',['has','mw']], statusExpr, yearExpr]);
+  const countyExpr = ['in', ['get','county'], ['literal', Array.from(checkedCounties)]];
+  mapDepl.setFilter('dcd-q', ['all', ['has','mw'], statusExpr, yearExpr, countyExpr]);
+  mapDepl.setFilter('dcd-p', ['all', ['!',['has','mw']], statusExpr, yearExpr, countyExpr]);
 }
 
 function renderDepletion(){
@@ -586,6 +680,14 @@ function renderContamination(){
     return `<div class="bd-row"><div class="bd-label"><b>${p.name}</b><span>${fmtGalRaw(p._liveRunoff||0)}</span></div>
     <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${((p._liveRunoff||0)/maxR*100).toFixed(1)}%;background:${color};"></div></div></div>`;
   }).join('');
+
+  const byCountyPollution = {};
+  quantified.forEach(p=>{ byCountyPollution[p.county] = (byCountyPollution[p.county]||0) + (p._liveRunoff||0); });
+  const pce = Object.entries(byCountyPollution).sort((a,b)=>b[1]-a[1]);
+  const maxPC = pce.length?pce[0][1]:1;
+  document.getElementById('pollutionByCounty').innerHTML = pce.map(([n,v])=>`
+    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${fmtGalRaw(v)}</span></div>
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxPC*100).toFixed(1)}%;background:#a3492f;"></div></div></div>`).join('');
 }
 
 document.getElementById('loadFactor').addEventListener('input', e=>{
@@ -669,6 +771,42 @@ updateSliderFill(document.getElementById('loadFactor'));
 updateSliderFill(document.getElementById('yearSlider'));
 updateSliderFill(document.getElementById('cYearSlider'));
 updateSliderFill(document.getElementById('impervSlider'));
+
+document.querySelectorAll('.fullscreen-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const el = document.getElementById(btn.dataset.target);
+    if (!el) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else if (el.requestFullscreen) {
+      el.requestFullscreen().then(()=>{
+        setTimeout(()=>{
+          if (mapDepl) mapDepl.resize();
+          if (mapCont) mapCont.resize();
+        }, 150);
+      });
+    }
+  });
+});
+document.addEventListener('fullscreenchange', ()=>{
+  setTimeout(()=>{
+    if (mapDepl) mapDepl.resize();
+    if (mapCont) mapCont.resize();
+  }, 150);
+});
+
+document.querySelectorAll('.zoom-ctl').forEach(ctl=>{
+  const map = ctl.dataset.target === 'map-depl' ? mapDepl : mapCont;
+  ctl.querySelector('.zoom-in').addEventListener('click', ()=>{ if(map) map.zoomIn(); });
+  ctl.querySelector('.zoom-out').addEventListener('click', ()=>{ if(map) map.zoomOut(); });
+});
+
+document.getElementById('basemapDepl').addEventListener('change', e=>{
+  if (mapDepl) mapDepl.setStyle('mapbox://styles/mapbox/'+e.target.value);
+});
+document.getElementById('basemapCont').addEventListener('change', e=>{
+  if (mapCont) mapCont.setStyle('mapbox://styles/mapbox/'+e.target.value);
+});
 
 function openDetail(p){
   document.getElementById('detail').classList.add('open');
