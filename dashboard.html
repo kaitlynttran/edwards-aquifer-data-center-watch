@@ -102,7 +102,7 @@
   .legend-toggle{display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer;font-size:11px;}
   .legend-toggle input{margin:0;width:12px;height:12px;}
 
-  .bd-body{padding:14px 18px;max-height:560px;overflow-y:auto;}
+  .bd-body{padding:14px 18px;max-height:340px;overflow-y:auto;}
   .bd-row{margin-bottom:11px;}
   .bd-row .bd-label{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;}
   .bd-row .bd-label span{font-family:var(--mono);color:var(--muted);font-size:11.5px;}
@@ -167,6 +167,17 @@
   <h1>Edwards Aquifer Data Center Watch</h1>
   <div class="byline">By <b>Kaitlyn Tran</b> and <b>Dr. Fenil Gandhi</b> &middot; preliminary screening, June 2026</div>
 
+  <div class="mode-switch">
+    <button class="mode-btn depl" id="btnDepletion" data-active="true">
+      <span class="tag">Depletion</span>
+      <p>Scoped to the 8 counties the Edwards Aquifer Authority (EAA) has jurisdiction over: Bexar, Medina, Uvalde, Atascosa, Caldwell, Comal, Guadalupe, Hays. Excludes Travis, Kinney, and Williamson, where EAA has no jurisdiction.</p>
+    </button>
+    <button class="mode-btn cont" id="btnContamination">
+      <span class="tag">Pollution potential</span>
+      <p>Scoped to the 8 counties the Texas Commission on Environmental Quality (TCEQ) designates under the Edwards Aquifer Protection Program: Bexar, Comal, Hays, Kinney, Medina, Travis, Uvalde, Williamson. Excludes Atascosa, Caldwell, and Guadalupe, which have no TCEQ recharge-zone program.</p>
+    </button>
+  </div>
+
   <div class="shared-controls">
     <div class="ctl-block" style="flex:1.4;">
       <label style="margin-bottom:8px;">Facility status</label>
@@ -183,17 +194,6 @@
     </div>
   </div>
 
-  <div class="mode-switch">
-    <button class="mode-btn depl" id="btnDepletion" data-active="true">
-      <span class="tag">Depletion</span>
-      <p>Scoped to the 8 counties the Edwards Aquifer Authority (EAA) has jurisdiction over: Bexar, Medina, Uvalde, Atascosa, Caldwell, Comal, Guadalupe, Hays. Excludes Travis, Kinney, and Williamson, where EAA has no jurisdiction.</p>
-    </button>
-    <button class="mode-btn cont" id="btnContamination">
-      <span class="tag">Pollution potential</span>
-      <p>Scoped to the 8 counties the Texas Commission on Environmental Quality (TCEQ) designates under the Edwards Aquifer Protection Program: Bexar, Comal, Hays, Kinney, Medina, Travis, Uvalde, Williamson. Excludes Atascosa, Caldwell, and Guadalupe, which have no TCEQ recharge-zone program.</p>
-    </button>
-  </div>
-
 
   <!-- ===================== DEPLETION VIEW ===================== -->
   <div id="depletionView">
@@ -202,21 +202,6 @@
       <div class="stat-card"><div class="v" id="d-stat-q">13</div><div class="k">Have public information on power use</div></div>
       <div class="stat-card"><div class="v" id="d-stat-water">4.6 B gal/yr</div><div class="k">Estimated water use for facilities with known power use</div></div>
       <div class="stat-card"><div class="v" id="d-stat-nogcd">17</div><div class="k">Of 23 facilities fall under EAA's direct groundwater permitting</div></div>
-    </div>
-
-    <div class="controls-row">
-      <div class="ctl-block">
-        <label>Load factor <span class="val" id="lfVal">100%</span></label>
-        <input type="range" id="loadFactor" min="10" max="100" step="5" value="100">
-      </div>
-      <div class="ctl-block">
-        <label>Through year <span class="val" id="yearVal">2027</span></label>
-        <input type="range" id="yearSlider" min="1996" max="2027" step="1" value="2027">
-      </div>
-      <div class="ctl-block" style="flex:0.7;">
-        <label>Find operator</label>
-        <input type="text" class="search-box" id="opSearch" placeholder="e.g. Microsoft">
-      </div>
     </div>
 
     <div class="main-grid">
@@ -252,6 +237,10 @@
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="ctl-block">
+          <label>Load factor <span class="val" id="lfVal">100%</span></label>
+          <input type="range" id="loadFactor" min="10" max="100" step="5" value="100">
+        </div>
         <div class="panel"><div class="panel-head"><h2>Water use by county</h2></div><div class="bd-body" id="byCounty"></div></div>
         <div class="panel"><div class="panel-head"><h2>Water use by operator</h2></div><div class="bd-body" id="byOperator"></div></div>
       </div>
@@ -289,17 +278,6 @@
       <div class="stat-card"><div class="v" id="c-stat-blowdown">2.0B gal/yr</div><div class="k">Estimated cooling-tower blowdown discharge across quantified sites: concentrated wastewater containing biocides, corrosion inhibitors, and trace heavy metals</div></div>
     </div>
 
-    <div class="controls-row">
-      <div class="ctl-block">
-        <label>Through year <span class="val" id="cYearVal">2027</span></label>
-        <input type="range" id="cYearSlider" min="1996" max="2027" step="1" value="2027">
-      </div>
-      <div class="ctl-block">
-        <label>Impervious surface assumption <span class="val" id="impervVal">75%</span></label>
-        <input type="range" id="impervSlider" min="60" max="80" step="1" value="75">
-      </div>
-    </div>
-
     <div class="main-grid">
       <div class="panel">
         <div class="panel-head"><h2>Pollution potential map &middot; TCEQ jurisdiction</h2></div>
@@ -334,6 +312,10 @@
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="ctl-block">
+          <label>Impervious surface assumption <span class="val" id="impervVal">75%</span></label>
+          <input type="range" id="impervSlider" min="60" max="80" step="1" value="75">
+        </div>
         <div class="panel"><div class="panel-head"><h2>Water pollution by county</h2></div><div class="bd-body" id="pollutionByCounty"></div></div>
         <div class="panel"><div class="panel-head"><h2>Water pollution by operator</h2></div><div class="bd-body" id="byRunoff"></div></div>
       </div>
@@ -412,7 +394,6 @@ let currentYear = 2027;
 let currentYearCont = 2027;
 let imperviousFraction = 0.75;
 let currentStatuses = new Set(['Operating','Under Construction','Planned']);
-let currentSearch = '';
 const statusColor = {Operating:'#2f8f5b','Under Construction':'#c1791f',Planned:'#5b62b8'};
 const WATER_PER_MW = 12.78;
 const GALLONS_PER_ACFT = 325851;
@@ -584,7 +565,6 @@ function passesFilters(p){
   if (!checkedCounties.has(p.county)) return false;
   if (!currentStatuses.has(p.status)) return false;
   if (p.year != null && p.year > currentYear) return false;
-  if (currentSearch && !((p.operator||'').toLowerCase().includes(currentSearch) || (p.name||'').toLowerCase().includes(currentSearch))) return false;
   return true;
 }
 
@@ -696,30 +676,12 @@ document.getElementById('loadFactor').addEventListener('input', e=>{
   updateSliderFill(e.target);
   renderDepletion();
 });
-document.getElementById('yearSlider').addEventListener('input', e=>{
-  currentYear = parseInt(e.target.value);
-  updateSliderFill(e.target);
-  document.getElementById('yearVal').textContent = currentYear;
-  renderDepletion();
-  applyDeplFilter();
-});
-document.getElementById('cYearSlider').addEventListener('input', e=>{
-  currentYearCont = parseInt(e.target.value);
-  updateSliderFill(e.target);
-  document.getElementById('cYearVal').textContent = currentYearCont;
-  renderContamination();
-  applyContFilter();
-});
 document.getElementById('impervSlider').addEventListener('input', e=>{
   imperviousFraction = parseInt(e.target.value)/100;
   updateSliderFill(e.target);
   document.getElementById('impervVal').textContent = e.target.value+'%';
   renderContamination();
   refreshContMap();
-});
-document.getElementById('opSearch').addEventListener('input', e=>{
-  currentSearch = e.target.value.toLowerCase();
-  renderDepletion();
 });
 document.querySelectorAll('.status-check').forEach(cb=>{
   cb.addEventListener('change', e=>{
@@ -768,8 +730,6 @@ document.getElementById('btnContamination').addEventListener('click', ()=>{
 });
 
 updateSliderFill(document.getElementById('loadFactor'));
-updateSliderFill(document.getElementById('yearSlider'));
-updateSliderFill(document.getElementById('cYearSlider'));
 updateSliderFill(document.getElementById('impervSlider'));
 
 document.querySelectorAll('.fullscreen-btn').forEach(btn=>{
