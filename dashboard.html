@@ -397,10 +397,10 @@ const COUNTY_COLORS = {
   'Travis':'#2f8f5b','Uvalde':'#d4a843','Williamson':'#5b9bd5'
 };
 
-function buildCountyChips(){
+function buildCountyChips(countyList){
   const el = document.getElementById('countyChips');
-  el.innerHTML = ALL_COUNTIES.map(c =>
-    `<button class="county-pill" data-county="${c}" data-active="true" style="--county-color:${COUNTY_COLORS[c]||'#888'}">${c}</button>`
+  el.innerHTML = countyList.map(c =>
+    `<button class="county-pill" data-county="${c}" data-active="${checkedCounties.has(c)}" style="--county-color:${COUNTY_COLORS[c]||'#888'}">${c}</button>`
   ).join('');
   document.querySelectorAll('.county-pill').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -414,7 +414,7 @@ function buildCountyChips(){
     });
   });
 }
-buildCountyChips();
+buildCountyChips(EAA_COUNTIES);
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpdGx5bnRyYW4iLCJhIjoiY21xbHF4emtuMTRyMzJxcTB2dzExamw5ciJ9.aIui5ZZrbTSth0vZmABAdQ';
 
@@ -478,10 +478,20 @@ function loadZoneLayer(map, file, id, color, defaultVisible){
 let mapDeplReady = false;
 let mapContReady = false;
 
+function loadCountyOutlines(map, relevantCounties, sourceId){
+  fetch('data/study_counties.geojson').then(r=>r.json()).then(geo=>{
+    const filtered = {type:'FeatureCollection', features: geo.features.filter(f=>relevantCounties.includes(f.properties.county))};
+    map.addSource(sourceId, {type:'geojson', data: filtered});
+    map.addLayer({id:sourceId+'-line', type:'line', source:sourceId,
+      paint:{'line-color':['get','color'],'line-width':1.5,'line-opacity':0.55}});
+  }).catch(e=>console.error('Failed to load county outlines:', e));
+}
+
 function setupDeplLayers(){
   loadZoneLayer(mapDepl, 'eaa_artesian.geojson', 'eaa-artesian', '#0e6e8e', true);
   loadZoneLayer(mapDepl, 'eaa_recharge.geojson', 'eaa-recharge', '#13a8a0', true);
   loadZoneLayer(mapDepl, 'eaa_contributing.geojson', 'eaa-contributing', '#c9b458', true);
+  loadCountyOutlines(mapDepl, EAA_COUNTIES, 'depl-counties');
   fetch('data/gcd_boundaries.geojson').then(r=>r.json()).then(geo=>{
     mapDepl.addSource('gcd',{type:'geojson',data:geo});
     mapDepl.addLayer({id:'gcd-fill',type:'fill',source:'gcd',layout:{visibility:'none'},paint:{'fill-color':'#9b6fb0','fill-opacity':0.22}});
@@ -496,6 +506,7 @@ function setupContLayers(){
   loadZoneLayer(mapCont, 'zone_transition.geojson', 'zone-transition', '#5b9bd5', true);
   loadZoneLayer(mapCont, 'zone_contributing.geojson', 'zone-contributing', '#c9b458', true);
   loadZoneLayer(mapCont, 'zone_contributing_transition.geojson', 'zone-contributing-transition', '#d4a843', true);
+  loadCountyOutlines(mapCont, TCEQ_COUNTIES, 'cont-counties');
   mapContReady = true;
   if (DC_DATA) addContPoints();
 }
@@ -764,6 +775,7 @@ document.getElementById('btnDepletion').addEventListener('click', ()=>{
   document.getElementById('btnContamination').classList.remove('cont-active');
   document.getElementById('depletionView').style.display='block';
   document.getElementById('contaminationView').style.display='none';
+  buildCountyChips(EAA_COUNTIES);
   if (mapDepl) setTimeout(()=>mapDepl.resize(),50);
 });
 document.getElementById('btnContamination').addEventListener('click', ()=>{
@@ -772,6 +784,7 @@ document.getElementById('btnContamination').addEventListener('click', ()=>{
   document.getElementById('btnDepletion').dataset.active='false';
   document.getElementById('depletionView').style.display='none';
   document.getElementById('contaminationView').style.display='block';
+  buildCountyChips(TCEQ_COUNTIES);
   if (mapCont) setTimeout(()=>mapCont.resize(),50);
 });
 
