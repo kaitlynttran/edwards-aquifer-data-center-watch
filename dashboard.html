@@ -165,7 +165,7 @@
 
 <div class="wrap">
   <h1>Edwards Aquifer Data Center Watch</h1>
-  <div class="byline">By <b>Kaitlyn Tran</b> and <b>Dr. Fenil Gandhi</b> &middot; preliminary screening, June 2026</div>
+  <div class="byline">By <a href="contact.html" style="color:inherit;text-decoration:underline;"><b>Kaitlyn Tran</b></a> and <a href="contact.html" style="color:inherit;text-decoration:underline;"><b>Dr. Fenil Gandhi</b></a> &middot; preliminary screening, June 2026</div>
 
   <div class="mode-switch">
     <button class="mode-btn depl" id="btnDepletion" data-active="true">
@@ -209,7 +209,7 @@
             <div class="legend-section-label">Edwards Aquifer Zones</div>
             <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-artesian" checked><span class="legend-dot" style="background:#0e6e8e;border-radius:3px;"></span>Artesian Zone</label>
             <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-recharge" checked><span class="legend-dot" style="background:#13a8a0;border-radius:3px;"></span>Recharge Zone</label>
-            <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-contributing"><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-contributing" checked><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing Zone</label>
             <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
             <div class="legend-section-label">Jurisdiction</div>
             <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="gcd"><span class="legend-dot" style="background:#9b6fb0;border-radius:3px;"></span>Groundwater Districts</label>
@@ -281,8 +281,8 @@
             <div class="legend-section-label">Regulated Zones by TCEQ</div>
             <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-recharge" checked><span class="legend-dot" style="background:#0e7c7b;border-radius:3px;"></span>Recharge Zone</label>
             <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-transition" checked><span class="legend-dot" style="background:#5b9bd5;border-radius:3px;"></span>Transition Zone</label>
-            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing"><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing Zone</label>
-            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing-transition"><span class="legend-dot" style="background:#d4a843;border-radius:3px;"></span>Contributing (Transition)</label>
+            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing" checked><span class="legend-dot" style="background:#c9b458;border-radius:3px;"></span>Contributing Zone</label>
+            <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-contributing-transition" checked><span class="legend-dot" style="background:#d4a843;border-radius:3px;"></span>Contributing (Transition)</label>
             <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
             <div class="legend-section-label">Cooling-Tower Blowdown</div>
             <div class="legend-row" style="font-size:10.5px;color:var(--muted);line-height:1.4;max-width:170px;">Total water use &divide; 4 cycles of concentration. Click a facility for its estimate.</div>
@@ -443,6 +443,28 @@ try {
   console.error('Map init failed:', err);
 }
 
+function setupGcdHover(){
+  const popup = new mapboxgl.Popup({closeButton:false, closeOnClick:false});
+  mapDepl.on('mousemove', 'gcd-fill', e=>{
+    mapDepl.getCanvas().style.cursor = 'pointer';
+    const name = e.features[0].properties.DISTNAME;
+    const display = name ? name.replace(/\b\w/g, c=>c.toUpperCase()) : 'Unknown district';
+    popup.setLngLat(e.lngLat).setHTML(`<div style="font-size:12px;font-weight:600;">${display}</div>`).addTo(mapDepl);
+  });
+  mapDepl.on('mouseleave', 'gcd-fill', ()=>{
+    mapDepl.getCanvas().style.cursor = '';
+    popup.remove();
+  });
+  mapDepl.on('click', 'gcd-fill', e=>{
+    const name = e.features[0].properties.DISTNAME;
+    const display = name ? name.replace(/\b\w/g, c=>c.toUpperCase()) : 'Unknown district';
+    new mapboxgl.Popup({closeButton:true})
+      .setLngLat(e.lngLat)
+      .setHTML(`<div style="font-size:13px;font-weight:700;margin-bottom:2px;">${display}</div><div style="font-size:11px;color:#6b7b87;">Groundwater Conservation District</div>`)
+      .addTo(mapDepl);
+  });
+}
+
 function loadZoneLayer(map, file, id, color, defaultVisible){
   fetch('data/'+file).then(r=>r.json()).then(geo=>{
     map.addSource(id,{type:'geojson',data:geo});
@@ -453,22 +475,28 @@ function loadZoneLayer(map, file, id, color, defaultVisible){
   }).catch(e=>console.error('Failed to load '+file, e));
 }
 
+let mapDeplReady = false;
+let mapContReady = false;
+
 function setupDeplLayers(){
   loadZoneLayer(mapDepl, 'eaa_artesian.geojson', 'eaa-artesian', '#0e6e8e', true);
   loadZoneLayer(mapDepl, 'eaa_recharge.geojson', 'eaa-recharge', '#13a8a0', true);
-  loadZoneLayer(mapDepl, 'eaa_contributing.geojson', 'eaa-contributing', '#c9b458', false);
+  loadZoneLayer(mapDepl, 'eaa_contributing.geojson', 'eaa-contributing', '#c9b458', true);
   fetch('data/gcd_boundaries.geojson').then(r=>r.json()).then(geo=>{
     mapDepl.addSource('gcd',{type:'geojson',data:geo});
-    mapDepl.addLayer({id:'gcd-fill',type:'fill',source:'gcd',layout:{visibility:'none'},paint:{'fill-color':'#9b6fb0','fill-opacity':0.12}});
-    mapDepl.addLayer({id:'gcd-line',type:'line',source:'gcd',layout:{visibility:'none'},paint:{'line-color':'#7a4d8f','line-width':1.2,'line-dasharray':[1,1]}});
+    mapDepl.addLayer({id:'gcd-fill',type:'fill',source:'gcd',layout:{visibility:'none'},paint:{'fill-color':'#9b6fb0','fill-opacity':0.22}});
+    mapDepl.addLayer({id:'gcd-line',type:'line',source:'gcd',layout:{visibility:'none'},paint:{'line-color':'#7a4d8f','line-width':1.8}});
+    setupGcdHover();
   }).catch(e=>console.error(e));
+  mapDeplReady = true;
   if (DC_DATA) addDeplPoints();
 }
 function setupContLayers(){
   loadZoneLayer(mapCont, 'zone_recharge.geojson', 'zone-recharge', '#0e7c7b', true);
   loadZoneLayer(mapCont, 'zone_transition.geojson', 'zone-transition', '#5b9bd5', true);
-  loadZoneLayer(mapCont, 'zone_contributing.geojson', 'zone-contributing', '#c9b458', false);
-  loadZoneLayer(mapCont, 'zone_contributing_transition.geojson', 'zone-contributing-transition', '#d4a843', false);
+  loadZoneLayer(mapCont, 'zone_contributing.geojson', 'zone-contributing', '#c9b458', true);
+  loadZoneLayer(mapCont, 'zone_contributing_transition.geojson', 'zone-contributing-transition', '#d4a843', true);
+  mapContReady = true;
   if (DC_DATA) addContPoints();
 }
 if (mapDepl) {
@@ -548,8 +576,8 @@ fetch('data/edwards_datacenters.geojson').then(r=>r.json()).then(geo=>{
   DC_DATA = geo;
   renderDepletion();
   renderContamination();
-  if (mapDepl && mapDepl.loaded()) addDeplPoints();
-  if (mapCont && mapCont.loaded()) addContPoints();
+  if (mapDeplReady) addDeplPoints();
+  if (mapContReady) addContPoints();
 }).catch(e=>{
   console.error('Failed to load data centers:', e);
   document.getElementById('byCounty').innerHTML = '<div style="color:#a3492f;font-size:12px;">Could not load facility data.</div>';
@@ -594,20 +622,29 @@ function renderDepletion(){
   document.getElementById('d-stat-nogcd').textContent = eaaDirect;
 
   const byCounty = {};
-  quantified.forEach(p=>{byCounty[p.county]=(byCounty[p.county]||0)+p.mw*WATER_PER_MW*loadFactor;});
+  const byCountyMax = {};
+  quantified.forEach(p=>{
+    byCounty[p.county]=(byCounty[p.county]||0)+p.mw*WATER_PER_MW*loadFactor;
+    byCountyMax[p.county]=(byCountyMax[p.county]||0)+p.mw*WATER_PER_MW;
+  });
+  EAA_COUNTIES.forEach(c=>{ if (!(c in byCounty)) { byCounty[c] = 0; byCountyMax[c] = 0; } });
   const ce = Object.entries(byCounty).sort((a,b)=>b[1]-a[1]);
-  const maxC = ce.length?ce[0][1]:1;
+  const maxCAbs = Math.max(...Object.values(byCountyMax), 1);
   document.getElementById('byCounty').innerHTML = ce.map(([n,v])=>`
-    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${fmtGallons(v)}/yr</span></div>
-    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxC*100).toFixed(1)}%;background:var(--depl);"></div></div></div>`).join('');
+    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${v>0?fmtGallons(v)+'/yr':'No quantified facilities'}</span></div>
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxCAbs*100).toFixed(1)}%;background:var(--depl);"></div></div></div>`).join('');
 
   const byOp = {};
-  quantified.forEach(p=>{byOp[p.operator]=(byOp[p.operator]||0)+p.mw*WATER_PER_MW*loadFactor;});
+  const byOpMax = {};
+  quantified.forEach(p=>{
+    byOp[p.operator]=(byOp[p.operator]||0)+p.mw*WATER_PER_MW*loadFactor;
+    byOpMax[p.operator]=(byOpMax[p.operator]||0)+p.mw*WATER_PER_MW;
+  });
   const oe = Object.entries(byOp).sort((a,b)=>b[1]-a[1]);
-  const maxO = oe.length?oe[0][1]:1;
+  const maxOAbs = Math.max(...Object.values(byOpMax), 1);
   document.getElementById('byOperator').innerHTML = oe.map(([n,v])=>`
     <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${fmtGallons(v)}/yr</span></div>
-    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxO*100).toFixed(1)}%;background:var(--depl);"></div></div></div>`).join('');
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxOAbs*100).toFixed(1)}%;background:var(--depl);"></div></div></div>`).join('');
 
   applyDeplFilter();
 }
@@ -622,6 +659,13 @@ function liveRunoff(mw){
   const rv = 0.05 + 0.9 * imperviousFraction;
   const runoffAcft = rv * DESIGN_RAINFALL_IN * acres / 12;
   return Math.round(runoffAcft * GALLONS_PER_ACFT);
+}
+function liveRunoffAt(mw, fraction){
+  if (mw == null) return 0;
+  const acres = mw / MW_PER_ACRE;
+  const rv = 0.05 + 0.9 * fraction;
+  const runoffAcft = rv * DESIGN_RAINFALL_IN * acres / 12;
+  return runoffAcft * GALLONS_PER_ACFT;
 }
 function liveRiskTier(p){
   const runoff = liveRunoff(p.mw);
@@ -651,20 +695,25 @@ function renderContamination(){
   document.getElementById('c-stat-blowdown').textContent = fmtGallons(totalBlowdown/GALLONS_PER_ACFT) + '/yr';
 
   const ranked = quantified.slice().sort((a,b)=>(b._liveRunoff||0)-(a._liveRunoff||0));
-  const maxR = ranked.length?ranked[0]._liveRunoff:1;
+  const maxRAbs = Math.max(...quantified.map(p=>liveRunoffAt(p.mw, 0.80)), 1);
   document.getElementById('byRunoff').innerHTML = ranked.map(p=>{
     const color = p._liveTier==='High'?'#a3492f':(p._liveTier==='Medium'?'#d4a843':'#7f9098');
     return `<div class="bd-row"><div class="bd-label"><b>${p.name}</b><span>${fmtGalRaw(p._liveRunoff||0)}</span></div>
-    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${((p._liveRunoff||0)/maxR*100).toFixed(1)}%;background:${color};"></div></div></div>`;
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${((p._liveRunoff||0)/maxRAbs*100).toFixed(1)}%;background:${color};"></div></div></div>`;
   }).join('');
 
   const byCountyPollution = {};
-  quantified.forEach(p=>{ byCountyPollution[p.county] = (byCountyPollution[p.county]||0) + (p._liveRunoff||0); });
+  const byCountyPollutionMax = {};
+  quantified.forEach(p=>{
+    byCountyPollution[p.county] = (byCountyPollution[p.county]||0) + (p._liveRunoff||0);
+    byCountyPollutionMax[p.county] = (byCountyPollutionMax[p.county]||0) + liveRunoffAt(p.mw, 0.80);
+  });
+  TCEQ_COUNTIES.forEach(c=>{ if (!(c in byCountyPollution)) { byCountyPollution[c] = 0; byCountyPollutionMax[c] = 0; } });
   const pce = Object.entries(byCountyPollution).sort((a,b)=>b[1]-a[1]);
-  const maxPC = pce.length?pce[0][1]:1;
+  const maxPCAbs = Math.max(...Object.values(byCountyPollutionMax), 1);
   document.getElementById('pollutionByCounty').innerHTML = pce.map(([n,v])=>`
-    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${fmtGalRaw(v)}</span></div>
-    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxPC*100).toFixed(1)}%;background:#a3492f;"></div></div></div>`).join('');
+    <div class="bd-row"><div class="bd-label"><b>${n}</b><span>${v>0?fmtGalRaw(v):'No quantified facilities'}</span></div>
+    <div class="bd-bar-track"><div class="bd-bar-fill" style="width:${(v/maxPCAbs*100).toFixed(1)}%;background:#a3492f;"></div></div></div>`).join('');
 }
 
 document.getElementById('loadFactor').addEventListener('input', e=>{
