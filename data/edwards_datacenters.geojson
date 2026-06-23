@@ -6,8 +6,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.587,
-          29.488
+          -98.472,
+          29.619
         ]
       },
       "properties": {
@@ -22,7 +22,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 14.3,
+        "impervious_acres": 10.7,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.86,
+        "runoff_gallons_per_storm": 281240,
+        "contamination_risk_tier": "Medium",
+        "note": " Relocated in 2023 from Windcrest (east Bexar County) to RidgeWood Plaza II, near the Loop 1604/US 281 interchange in north San Antonio (Encino Park neighborhood); coordinates updated to reflect the current headquarters location."
       }
     },
     {
@@ -30,8 +38,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.52,
-          29.45
+          -98.671576,
+          29.471741
         ]
       },
       "properties": {
@@ -46,7 +54,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 11.4,
+        "impervious_acres": 8.6,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.69,
+        "runoff_gallons_per_storm": 224992,
+        "contamination_risk_tier": "Medium",
+        "note": " Verified location: 9550 Westover Hills Blvd, San Antonio (PeeringDB geocode), far West Side of San Antonio."
       }
     },
     {
@@ -54,8 +70,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.545,
-          29.465
+          -98.688078,
+          29.46661
         ]
       },
       "properties": {
@@ -70,7 +86,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 8.6,
+        "impervious_acres": 6.4,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.52,
+        "runoff_gallons_per_storm": 168744,
+        "contamination_risk_tier": "Low",
+        "note": " Verified location: 9999 Westover Hills Blvd, San Antonio (PeeringDB geocode)."
       }
     },
     {
@@ -78,8 +102,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.4936,
-          29.4241
+          -98.695,
+          29.458
         ]
       },
       "properties": {
@@ -94,7 +118,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 28.6,
+        "impervious_acres": 21.4,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 1.73,
+        "runoff_gallons_per_storm": 562481,
+        "contamination_risk_tier": "Medium",
+        "note": " Verified address: 5150 Rogers Rd, San Antonio (Potranco neighborhood, 78251), Microsoft's primary South Central US Azure region campus. Placed near this address; exact building geocode not independently confirmed."
       }
     },
     {
@@ -102,8 +134,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.4936,
-          29.4241
+          -98.486791,
+          29.429369
         ]
       },
       "properties": {
@@ -116,10 +148,17 @@
         "cooling": "Air",
         "water_acft": null,
         "include": "Pending",
-        "note": "Confirmed but small -- downtown colo facility; negligible water; exact MW not published.",
+        "note": "Confirmed but small -- downtown colo facility; negligible water; exact MW not published. Verified location: 100 Taylor St, downtown San Antonio (PeeringDB geocode), an 85,000 SF carrier hotel.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -127,8 +166,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.51,
-          29.44
+          -98.661,
+          29.454
         ]
       },
       "properties": {
@@ -143,7 +182,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 25.7,
+        "impervious_acres": 19.3,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 1.55,
+        "runoff_gallons_per_storm": 506233,
+        "contamination_risk_tier": "Medium",
+        "note": " Verified address: 8535 Potranco Rd, corner of Ingram and Potranco Roads, San Antonio (TDLR construction permit, Bexar County)."
       }
     },
     {
@@ -151,8 +198,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.67,
-          29.42
+          -98.679,
+          29.417
         ]
       },
       "properties": {
@@ -165,10 +212,17 @@
         "cooling": "Unknown",
         "water_acft": null,
         "include": "Pending",
-        "note": "Capacity to be determined.",
+        "note": "Capacity to be determined. Verified address: 15000 block Lambda Dr, Texas Research Park, San Antonio (TDLR construction permit). This Microsoft-operated facility was registry-coded as Unknown but matches Microsoft's SAT46.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -176,8 +230,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.4936,
-          29.4241
+          -98.668,
+          29.452
         ]
       },
       "properties": {
@@ -190,10 +244,17 @@
         "cooling": "Unknown",
         "water_acft": null,
         "include": "Pending",
-        "note": "Identity resolved: reassigned from \"Unknown\" to Microsoft San Antonio. Capacity to be determined.",
+        "note": "Identity resolved: reassigned from \"Unknown\" to Microsoft San Antonio. Capacity to be determined. Verified address: 3555 Westover Link, San Antonio, near the Westover Hills data center corridor.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -201,8 +262,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.4936,
-          29.4241
+          -98.679,
+          29.417
         ]
       },
       "properties": {
@@ -215,10 +276,17 @@
         "cooling": "Unknown",
         "water_acft": null,
         "include": "Pending",
-        "note": "Identity resolved: reassigned from \"Unknown\" to Microsoft San Antonio. Capacity to be determined.",
+        "note": "Identity resolved: reassigned from \"Unknown\" to Microsoft San Antonio. Capacity to be determined. Verified address: 15000 Lambda Dr, Texas Research Park, San Antonio (same campus as SAT46).",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -226,8 +294,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.62,
-          29.38
+          -98.602,
+          29.404
         ]
       },
       "properties": {
@@ -240,10 +308,17 @@
         "cooling": "Unknown",
         "water_acft": null,
         "include": "Pending",
-        "note": "Confirmed but small -- approximately 1 MW edge node; negligible water; exact MW not published.",
+        "note": "Confirmed but small -- approximately 1 MW edge node; negligible water; exact MW not published. Verified address: 5436 New Highway 90 West, San Antonio, TX 78227 (TDLR construction permit TABS2023021880), adjacent to an existing cellular tower facility.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -251,8 +326,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.555,
-          29.455
+          -98.67,
+          29.449
         ]
       },
       "properties": {
@@ -267,7 +342,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 27.4,
+        "impervious_acres": 20.6,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 1.66,
+        "runoff_gallons_per_storm": 539982,
+        "contamination_risk_tier": "Medium",
+        "note": " Verified address: 5207 Rogers Rd (TX21), north corner of State Highway 151 and Wiseman Boulevard, San Antonio."
       }
     },
     {
@@ -275,8 +358,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.595,
-          29.475
+          -98.628,
+          29.268
         ]
       },
       "properties": {
@@ -291,7 +374,15 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 57.1,
+        "impervious_acres": 42.9,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 3.45,
+        "runoff_gallons_per_storm": 1124962,
+        "contamination_risk_tier": "Medium",
+        "note": " Verified location: 432-acre site at the intersection of State Highway 16 and Lone Star Pass, zip 78264, south Bexar County (per Bexar County property records, reported by DCD/BizJournals)."
       }
     },
     {
@@ -299,8 +390,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.65,
-          29.41
+          -98.665,
+          29.458
         ]
       },
       "properties": {
@@ -313,35 +404,17 @@
         "cooling": "Unknown",
         "water_acft": null,
         "include": "Pending",
-        "note": "Capacity to be determined.",
+        "note": "Capacity to be determined. Verified address: 1050 Democracy, San Antonio, TX 78251 (TDLR permit TABS2021008977), operated by COPT San Antonio II, LP.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -98.1245,
-          29.703
-        ]
-      },
-      "properties": {
-        "name": "New Braunfels Data Center",
-        "operator": "Unknown",
-        "county": "Comal",
-        "mw": null,
-        "year": 2024,
-        "status": "Planned",
-        "cooling": "Unknown",
-        "water_acft": null,
-        "include": "Pending",
-        "note": "Capacity to be determined.",
-        "on_recharge_zone": false,
-        "recharge_zone_type": "Edwards Aquifer Transition Zone",
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -365,7 +438,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "PLUM CREEK CONSERVATION DISTRICT"
+        "gcd_name": "PLUM CREEK CONSERVATION DISTRICT",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 42.9,
+        "impervious_acres": 32.1,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 2.59,
+        "runoff_gallons_per_storm": 843721,
+        "contamination_risk_tier": "Medium"
       }
     },
     {
@@ -390,7 +470,14 @@
         "note": "Undisclosed -- no public per-site capacity available.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "BARTON SPRINGS/EDWARDS AQUIFER CONSERVATION DISTRICT"
+        "gcd_name": "BARTON SPRINGS/EDWARDS AQUIFER CONSERVATION DISTRICT",
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -415,7 +502,14 @@
         "note": "Likely phantom / mislabeled -- does not match any discrete facility in this operator's portfolio. Needs verification.",
         "on_recharge_zone": false,
         "recharge_zone_type": "Edwards Aquifer Transition Zone",
-        "gcd_name": "BARTON SPRINGS/EDWARDS AQUIFER CONSERVATION DISTRICT"
+        "gcd_name": "BARTON SPRINGS/EDWARDS AQUIFER CONSERVATION DISTRICT",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -439,7 +533,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 42.9,
+        "impervious_acres": 32.1,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 2.59,
+        "runoff_gallons_per_storm": 843721,
+        "contamination_risk_tier": "Medium"
       }
     },
     {
@@ -463,7 +564,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": 57.1,
+        "impervious_acres": 42.9,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 3.45,
+        "runoff_gallons_per_storm": 1124962,
+        "contamination_risk_tier": "Medium"
       }
     },
     {
@@ -488,7 +596,14 @@
         "note": "Undisclosed -- no public per-site capacity available.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": "EDWARDS AQUIFER AUTHORITY"
+        "gcd_name": "EDWARDS AQUIFER AUTHORITY",
+        "eaa_zone": "Artesian Zone",
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -513,7 +628,14 @@
         "note": "Semiconductor fab, not a data center. Process water reported separately and excluded from the data-center total.",
         "on_recharge_zone": false,
         "recharge_zone_type": "Edwards Aquifer Transition Zone",
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -537,7 +659,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 5.7,
+        "impervious_acres": 4.3,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.35,
+        "runoff_gallons_per_storm": 112496,
+        "contamination_risk_tier": "Low"
       }
     },
     {
@@ -562,7 +691,14 @@
         "note": "Real but mis-tagged -- this is actually a planned Williamson County campus (outside the 7-county study area) that disclosed ~34 ac-ft/yr. This row's county/status are incorrect in the source registry.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -586,7 +722,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 8.6,
+        "impervious_acres": 6.4,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.52,
+        "runoff_gallons_per_storm": 168744,
+        "contamination_risk_tier": "Low"
       }
     },
     {
@@ -610,7 +753,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 14.3,
+        "impervious_acres": 10.7,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.86,
+        "runoff_gallons_per_storm": 281240,
+        "contamination_risk_tier": "Medium"
       }
     },
     {
@@ -634,7 +784,14 @@
         "include": "Yes",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 11.4,
+        "impervious_acres": 8.6,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.69,
+        "runoff_gallons_per_storm": 224992,
+        "contamination_risk_tier": "Medium"
       }
     },
     {
@@ -659,7 +816,14 @@
         "note": "Likely phantom / mislabeled -- does not match any discrete facility in this operator's portfolio. Needs verification.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -684,7 +848,14 @@
         "note": "Likely phantom / mislabeled -- does not match any discrete facility in this operator's portfolio. Needs verification.",
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -709,7 +880,14 @@
         "water_acft": null,
         "on_recharge_zone": true,
         "recharge_zone_type": "Edwards Aquifer Recharge Zone",
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -734,7 +912,14 @@
         "water_acft": null,
         "on_recharge_zone": false,
         "recharge_zone_type": "Edwards Aquifer Transition Zone",
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -759,7 +944,14 @@
         "water_acft": null,
         "on_recharge_zone": false,
         "recharge_zone_type": "Edwards Aquifer Transition Zone",
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -784,7 +976,14 @@
         "water_acft": null,
         "on_recharge_zone": true,
         "recharge_zone_type": "Edwards Aquifer Recharge Zone",
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -809,7 +1008,14 @@
         "water_acft": 7668,
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 171.4,
+        "impervious_acres": 128.6,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 10.36,
+        "runoff_gallons_per_storm": 3374885,
+        "contamination_risk_tier": "Medium"
       }
     },
     {
@@ -834,7 +1040,14 @@
         "water_acft": null,
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -859,7 +1072,14 @@
         "water_acft": 320,
         "on_recharge_zone": true,
         "recharge_zone_type": "Edwards Aquifer Recharge Zone",
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 7.1,
+        "impervious_acres": 5.4,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.43,
+        "runoff_gallons_per_storm": 140620,
+        "contamination_risk_tier": "High"
       }
     },
     {
@@ -884,7 +1104,14 @@
         "water_acft": null,
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -909,7 +1136,14 @@
         "water_acft": null,
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -934,7 +1168,14 @@
         "water_acft": null,
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": null,
+        "impervious_acres": null,
+        "runoff_coefficient": null,
+        "runoff_acft_per_storm": null,
+        "runoff_gallons_per_storm": null,
+        "contamination_risk_tier": "Unknown (capacity not public)"
       }
     },
     {
@@ -959,7 +1200,110 @@
         "water_acft": 767,
         "on_recharge_zone": false,
         "recharge_zone_type": null,
-        "gcd_name": null
+        "gcd_name": null,
+        "eaa_zone": null,
+        "site_acres": 17.1,
+        "impervious_acres": 12.9,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 1.04,
+        "runoff_gallons_per_storm": 337489,
+        "contamination_risk_tier": "Medium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.898,
+          29.923
+        ]
+      },
+      "properties": {
+        "name": "CloudBurst Data Center Campus (Francis Harris Lane)",
+        "operator": "CloudBurst Data Centers",
+        "county": "Guadalupe",
+        "mw": 50,
+        "year": 2026,
+        "status": "Under Construction",
+        "cooling": "Closed-loop",
+        "water_acft": 26.9,
+        "include": "Yes",
+        "note": "Verified address: 2955 Francis Harris Lane. This single facility was previously double-counted in our dataset under two names (\"New Braunfels Data Center\" and this entry); the duplicate has been removed. The site has a New Braunfels mailing address but sits outside New Braunfels city limits/ETJ, straddling the Hays-Guadalupe county line. Phase 1 of a master-planned 1.2 GW campus. Developer disclosed 24,000 gal/day direct facility water use to Guadalupe County Commissioners (Feb 2026). Water source: Crystal Clear Special Utility District. Approved 3-2 by Guadalupe County Commissioners Court on April 21, 2026.",
+        "site_acres": 14.3,
+        "impervious_acres": 10.7,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 0.86,
+        "runoff_gallons_per_storm": 281240,
+        "contamination_risk_tier": "Medium",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "PLUM CREEK CONSERVATION DISTRICT",
+        "eaa_zone": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.835,
+          29.943
+        ]
+      },
+      "properties": {
+        "name": "Tract Caldwell County Technology Park",
+        "operator": "Tract",
+        "county": "Caldwell",
+        "mw": 360,
+        "year": 2028,
+        "status": "Planned",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Master-planned for 2+ GW at full build-out on a site that has grown from 1,515 to roughly 3,000 acres. Initial 360 MW grid connection via Bluebonnet Electric Cooperative energizing in 2028. No public water-use figure disclosed as of this research.",
+        "site_acres": 102.9,
+        "impervious_acres": 77.1,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 6.21,
+        "runoff_gallons_per_storm": 2024931,
+        "contamination_risk_tier": "Medium",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "PLUM CREEK CONSERVATION DISTRICT",
+        "eaa_zone": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.82,
+          29.951
+        ]
+      },
+      "properties": {
+        "name": "Prime Data Centers Austin Campus (AUS01/AUS02)",
+        "operator": "Prime Data Centers",
+        "county": "Caldwell",
+        "mw": 384,
+        "year": 2027,
+        "status": "Under Construction",
+        "cooling": "Unknown",
+        "water_acft": null,
+        "include": "Pending",
+        "note": "Two facilities (AUS01, AUS02) at 1395 Bob White Road, Maxwell, Texas, each 380,000 sq ft, $400 million combined investment. Construction began June 2026, completion expected September 2027. Will deliver 384 MW critical across eight hyperscale buildings at full build-out. No public water-use figure disclosed as of this research.",
+        "site_acres": 109.7,
+        "impervious_acres": 82.3,
+        "runoff_coefficient": 0.725,
+        "runoff_acft_per_storm": 6.63,
+        "runoff_gallons_per_storm": 2159927,
+        "contamination_risk_tier": "Medium",
+        "on_recharge_zone": false,
+        "recharge_zone_type": null,
+        "gcd_name": "PLUM CREEK CONSERVATION DISTRICT",
+        "eaa_zone": null
       }
     }
   ]
