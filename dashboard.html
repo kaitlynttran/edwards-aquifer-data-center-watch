@@ -179,16 +179,7 @@
   </div>
 
   <div class="shared-controls">
-    <div class="ctl-block" style="flex:1.4;">
-      <label style="margin-bottom:8px;">Facility status</label>
-      <div class="chip-row">
-        <label class="legend-toggle"><input type="checkbox" class="status-check" value="Operating" checked><span class="legend-dot" style="background:var(--op);"></span>Operating</label>
-        <label class="legend-toggle"><input type="checkbox" class="status-check" value="Under Construction" checked><span class="legend-dot" style="background:var(--constr);"></span>Under construction</label>
-        <label class="legend-toggle"><input type="checkbox" class="status-check" value="Planned" checked><span class="legend-dot" style="background:var(--planned);"></span>Planned</label>
-        <label class="legend-toggle"><input type="checkbox" id="toggleUnknownCap" checked><span class="legend-dot dash"></span>Capacity unknown</label>
-      </div>
-    </div>
-    <div class="ctl-block" style="flex:2;">
+    <div class="ctl-block" style="flex:1;">
       <label style="margin-bottom:8px;">Counties shown</label>
       <div class="chip-row" id="countyChips"></div>
     </div>
@@ -209,11 +200,11 @@
         <div class="panel-head"><h2>Depletion map &middot; EAA jurisdiction</h2></div>
         <div id="map-depl" style="height:560px;position:relative;">
           <div class="map-legend">
-            <div class="legend-section-label">Water Use</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#a3492f;"></span>High</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#d4a843;"></span>Medium</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#7f9098;"></span>Low</div>
-            <div class="legend-row"><span class="legend-dot dash"></span>Unknown</div>
+            <div class="legend-section-label">Facility Status</div>
+            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Operating" checked><span class="legend-dot" style="background:var(--op);"></span>Operating</label>
+            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Under Construction" checked><span class="legend-dot" style="background:var(--constr);"></span>Under construction</label>
+            <label class="legend-toggle"><input type="checkbox" class="status-check" value="Planned" checked><span class="legend-dot" style="background:var(--planned);"></span>Planned</label>
+            <label class="legend-toggle"><input type="checkbox" id="toggleUnknownCap" checked><span class="legend-dot dash"></span>Capacity unknown</label>
             <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
             <div class="legend-section-label">Edwards Aquifer Zones</div>
             <label class="legend-toggle"><input type="checkbox" class="eaa-toggle" data-zone="eaa-artesian" checked><span class="legend-dot" style="background:#0e6e8e;border-radius:3px;"></span>Artesian Zone</label>
@@ -250,8 +241,6 @@
       <summary>How depletion numbers are calculated</summary>
       <div class="m-body">
         <p>No water meter readings exist publicly for these sites, so every number here is an estimate based on each facility's reported power use, not a direct measurement.</p>
-        <h4>Water use tiers</h4>
-        <p>Facilities are colored by estimated annual water use: <b>High</b> (&ge;600 million gallons/year, roughly 144+ MW), <b>Medium</b> (200&ndash;600 million gallons/year, roughly 48&ndash;144 MW), <b>Low</b> (under 200 million gallons/year). These break points are based on the actual spread of facilities in this dataset, not an external standard.</p>
         <h4>Why this map only covers 8 counties, and a different 8 than the pollution map</h4>
         <p>This map is scoped to the 8 counties the Edwards Aquifer Authority (EAA) has jurisdiction over: Bexar, Medina, Uvalde, Atascosa, Caldwell, Comal, Guadalupe, and Hays. That's a different list from the pollution map's 8 TCEQ counties. Travis, Kinney, and Williamson have no EAA jurisdiction, so facilities there (19 of them) are excluded from this map even though they appear on the pollution map. Atascosa has no confirmed, locatable data center project as of this research.</p>
         <h4>The formula</h4>
@@ -283,11 +272,11 @@
         <div class="panel-head"><h2>Pollution potential map &middot; TCEQ jurisdiction</h2></div>
         <div id="map-cont" style="height:560px;position:relative;">
           <div class="map-legend">
-            <div class="legend-section-label">Runoff Risk</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#a3492f;"></span>High</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#d4a843;"></span>Medium</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#7f9098;"></span>Low</div>
-            <div class="legend-row"><span class="legend-dot" style="background:#c4cdd1;"></span>Unknown</div>
+            <div class="legend-section-label">Facility Status</div>
+            <div class="legend-row"><span class="legend-dot" style="background:var(--op);"></span>Operating</div>
+            <div class="legend-row"><span class="legend-dot" style="background:var(--constr);"></span>Under construction</div>
+            <div class="legend-row"><span class="legend-dot" style="background:var(--planned);"></span>Planned</div>
+            <div class="legend-row"><span class="legend-dot dash"></span>Capacity unknown</div>
             <div style="border-top:1px solid var(--border);margin:6px 0;"></div>
             <div class="legend-section-label">Regulated Zones by TCEQ</div>
             <label class="legend-toggle"><input type="checkbox" class="zone-toggle" data-zone="zone-recharge" checked><span class="legend-dot" style="background:#0e7c7b;border-radius:3px;"></span>Recharge Zone</label>
@@ -490,7 +479,7 @@ if (mapCont) {
 }
 
 function filterGeoJSON(geo, counties){
-  return {type:'FeatureCollection', features: geo.features.filter(f=>counties.includes(f.properties.county))};
+  return {type:'FeatureCollection', features: geo.features.filter(f=>counties.includes(f.properties.county) && f.properties.include !== 'Exclude')};
 }
 function buildContGeoJSON(){
   const filtered = filterGeoJSON(DC_DATA, TCEQ_COUNTIES);
@@ -518,7 +507,7 @@ function addDeplPoints(){
   mapDepl.addSource('dcs-depl',{type:'geojson',data:deplData});
   mapDepl.addLayer({id:'dcd-q',type:'circle',source:'dcs-depl',filter:['has','mw'],
     paint:{'circle-radius':['interpolate',['linear'],['get','mw'],20,6,200,16],
-      'circle-color':['step',['get','mw'],'#7f9098',48,'#d4a843',144,'#a3492f'],
+      'circle-color':['match',['get','status'],'Operating',statusColor.Operating,'Under Construction',statusColor['Under Construction'],'Planned',statusColor.Planned,'#999'],
       'circle-opacity':0.9,'circle-stroke-width':1.4,'circle-stroke-color':'#fff'}});
   mapDepl.addLayer({id:'dcd-p',type:'circle',source:'dcs-depl',filter:['!',['has','mw']],
     paint:{'circle-radius':7,'circle-color':'#fff','circle-opacity':0.6,'circle-stroke-width':1.6,'circle-stroke-color':'#9aa5ab'}});
@@ -533,20 +522,26 @@ function addContPoints(){
   if (!mapCont || mapCont.getSource('dcs-cont')) return;
   const contData = buildContGeoJSON();
   mapCont.addSource('dcs-cont',{type:'geojson',data:contData});
-  mapCont.addLayer({id:'dcc-pts',type:'circle',source:'dcs-cont',
+  mapCont.addLayer({id:'dcc-pts',type:'circle',source:'dcs-cont',filter:['has','mw'],
     paint:{'circle-radius':['interpolate',['linear'],['get','runoff_gallons_per_storm'],10000,5,1000000,18],
-      'circle-color':['match',['get','contamination_risk_tier'],'High','#a3492f','Medium','#d4a843','Low','#7f9098','#c4cdd1'],
+      'circle-color':['match',['get','status'],'Operating',statusColor.Operating,'Under Construction',statusColor['Under Construction'],'Planned',statusColor.Planned,'#999'],
       'circle-opacity':0.85,'circle-stroke-width':1.2,'circle-stroke-color':'#fff'}});
-  mapCont.on('click','dcc-pts',e=>openDetail(e.features[0].properties));
-  mapCont.on('mouseenter','dcc-pts',()=>mapCont.getCanvas().style.cursor='pointer');
-  mapCont.on('mouseleave','dcc-pts',()=>mapCont.getCanvas().style.cursor='');
+  mapCont.addLayer({id:'dcc-pts-unknown',type:'circle',source:'dcs-cont',filter:['!',['has','mw']],
+    paint:{'circle-radius':7,'circle-color':'#fff','circle-opacity':0.6,'circle-stroke-width':1.6,'circle-stroke-color':'#9aa5ab'}});
+  ['dcc-pts','dcc-pts-unknown'].forEach(l=>{
+    mapCont.on('click',l,e=>openDetail(e.features[0].properties));
+    mapCont.on('mouseenter',l,()=>mapCont.getCanvas().style.cursor='pointer');
+    mapCont.on('mouseleave',l,()=>mapCont.getCanvas().style.cursor='');
+  });
   applyContFilter();
 }
 
 function applyContFilter(){
   if (!mapCont || !mapCont.getLayer('dcc-pts')) return;
   const countyExpr = ['in', ['get','county'], ['literal', Array.from(checkedCounties)]];
-  mapCont.setFilter('dcc-pts', ['all', ['<=',['get','year'],currentYearCont], countyExpr]);
+  const yearExpr = ['<=',['get','year'],currentYearCont];
+  mapCont.setFilter('dcc-pts', ['all', ['has','mw'], yearExpr, countyExpr]);
+  mapCont.setFilter('dcc-pts-unknown', ['all', ['!',['has','mw']], yearExpr, countyExpr]);
 }
 
 fetch('data/edwards_datacenters.geojson').then(r=>r.json()).then(geo=>{
@@ -561,6 +556,7 @@ fetch('data/edwards_datacenters.geojson').then(r=>r.json()).then(geo=>{
 });
 
 function passesFilters(p){
+  if (p.include === 'Exclude') return false;
   if (!EAA_COUNTIES.includes(p.county)) return false;
   if (!checkedCounties.has(p.county)) return false;
   if (!currentStatuses.has(p.status)) return false;
@@ -569,6 +565,7 @@ function passesFilters(p){
 }
 
 function passesContFilters(p){
+  if (p.include === 'Exclude') return false;
   if (!TCEQ_COUNTIES.includes(p.county)) return false;
   if (!checkedCounties.has(p.county)) return false;
   if (p.year != null && p.year > currentYearCont) return false;
