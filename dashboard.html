@@ -478,25 +478,49 @@ function loadZoneLayer(map, file, id, color, defaultVisible){
 let mapDeplReady = false;
 let mapContReady = false;
 
-function loadCountyOutlines(map, relevantCounties, sourceId){
+function setupCountyHover(map, layerId){
+  const popup = new mapboxgl.Popup({closeButton:false, closeOnClick:false});
+  map.on('mousemove', layerId, e=>{
+    map.getCanvas().style.cursor = 'pointer';
+    const name = e.features[0].properties.county;
+    popup.setLngLat(e.lngLat).setHTML(`<div style="font-size:12px;font-weight:600;">${name} County</div>`).addTo(map);
+  });
+  map.on('mouseleave', layerId, ()=>{
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  });
+}
+
+function loadCountyOutlines(map, relevantCounties, sourceId, dotLayerIds){
   fetch('data/study_counties.geojson').then(r=>r.json()).then(geo=>{
     const filtered = {type:'FeatureCollection', features: geo.features.filter(f=>relevantCounties.includes(f.properties.county))};
     map.addSource(sourceId, {type:'geojson', data: filtered});
+    map.addLayer({id:sourceId+'-fill', type:'fill', source:sourceId,
+      paint:{'fill-color':'#000','fill-opacity':0}});
     map.addLayer({id:sourceId+'-line', type:'line', source:sourceId,
       paint:{'line-color':['get','color'],'line-width':1.5,'line-opacity':0.55}});
+    setupCountyHover(map, sourceId+'-fill');
+    bringPointsToFront(map, dotLayerIds);
   }).catch(e=>console.error('Failed to load county outlines:', e));
+}
+
+function bringPointsToFront(map, layerIds){
+  layerIds.forEach(id=>{
+    if (map.getLayer(id)) map.moveLayer(id);
+  });
 }
 
 function setupDeplLayers(){
   loadZoneLayer(mapDepl, 'eaa_artesian.geojson', 'eaa-artesian', '#0e6e8e', true);
   loadZoneLayer(mapDepl, 'eaa_recharge.geojson', 'eaa-recharge', '#13a8a0', true);
   loadZoneLayer(mapDepl, 'eaa_contributing.geojson', 'eaa-contributing', '#c9b458', true);
-  loadCountyOutlines(mapDepl, EAA_COUNTIES, 'depl-counties');
+  loadCountyOutlines(mapDepl, EAA_COUNTIES, 'depl-counties', ['dcd-q','dcd-p']);
   fetch('data/gcd_boundaries.geojson').then(r=>r.json()).then(geo=>{
     mapDepl.addSource('gcd',{type:'geojson',data:geo});
     mapDepl.addLayer({id:'gcd-fill',type:'fill',source:'gcd',layout:{visibility:'none'},paint:{'fill-color':'#9b6fb0','fill-opacity':0.22}});
     mapDepl.addLayer({id:'gcd-line',type:'line',source:'gcd',layout:{visibility:'none'},paint:{'line-color':'#7a4d8f','line-width':1.8}});
     setupGcdHover();
+    bringPointsToFront(mapDepl, ['dcd-q','dcd-p']);
   }).catch(e=>console.error(e));
   mapDeplReady = true;
   if (DC_DATA) addDeplPoints();
@@ -506,7 +530,7 @@ function setupContLayers(){
   loadZoneLayer(mapCont, 'zone_transition.geojson', 'zone-transition', '#5b9bd5', true);
   loadZoneLayer(mapCont, 'zone_contributing.geojson', 'zone-contributing', '#c9b458', true);
   loadZoneLayer(mapCont, 'zone_contributing_transition.geojson', 'zone-contributing-transition', '#d4a843', true);
-  loadCountyOutlines(mapCont, TCEQ_COUNTIES, 'cont-counties');
+  loadCountyOutlines(mapCont, TCEQ_COUNTIES, 'cont-counties', ['dcc-pts','dcc-pts-unknown']);
   mapContReady = true;
   if (DC_DATA) addContPoints();
 }
@@ -556,6 +580,7 @@ function addDeplPoints(){
     mapDepl.on('mouseleave',l,()=>mapDepl.getCanvas().style.cursor='');
   });
   applyDeplFilter();
+  bringPointsToFront(mapDepl, ['dcd-q','dcd-p']);
 }
 function addContPoints(){
   if (!mapCont || mapCont.getSource('dcs-cont')) return;
@@ -573,6 +598,7 @@ function addContPoints(){
     mapCont.on('mouseleave',l,()=>mapCont.getCanvas().style.cursor='');
   });
   applyContFilter();
+  bringPointsToFront(mapCont, ['dcc-pts','dcc-pts-unknown']);
 }
 
 function applyContFilter(){
